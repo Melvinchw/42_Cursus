@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 20:55:23 by mchua             #+#    #+#             */
-/*   Updated: 2023/08/22 20:55:24 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/05 18:42:54 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/05 18:42:58 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#ifndef	LIBFT_H
+# define	LIBFT_H
 
-void	ft_bzero(void *s, size_t n)
-{
-	int	i;
-	
-	i = 0;
-	while (i < n)
-	{
-		ft_memset(s[i], 0, n);
-		i++;
-	}
-}
-/*
-int	main()
-{
-	char	s[20] = "Hello";
-	
-	printf("Original string is: %s\n", s);
-	ft_bzero(s, 3);
-	printf("Final string is: %s\n", s);
-	return (0);
-}
-*/
+# include	<stdio.h>
+# include	<unistd.h>
+# include	<stdlib.h>
+
+int	ft_strlen(char *str);
+int	ft_toupper(int c);
+int	ft_toupper(int c);
+
+#endif
+

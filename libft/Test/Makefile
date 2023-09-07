@@ -9,26 +9,13 @@
 #    Updated: 2023/09/05 20:46:52 by mchua            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-SRCS = ft_atoi.c \
-		ft_bzero.c \
-		ft_isalnum.c \
-		ft_isalpha.c \
-		ft_isascii.c \
-		ft_isdigit.c \
-		ft_isprint.c \
-		ft_memchr.c \
-		ft_memcmp.c \
-		ft_memcpy.c \
-		ft_memset.c \
-		ft_strchr.c \
-		ft_strrchr.c \
-		ft_strlcpy.c \
-		ft_strlen.c \
-		ft_strncmp.c \
+SRCS = ft_strlen.c \
 		ft_tolower.c \
 		ft_toupper.c
 
 NAME = libft.a
+
+BIN = main
 
 CC = clang
 
@@ -36,12 +23,15 @@ CC_FLAGS = -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+all: $(BIN)
+
+
+$(BIN): $(NAME)
+	$(CC) $(CC_FLAGS) -o $@ $(SRCS)
 
 $(NAME): $(OBJS)
 	ar rc -o $(NAME) $(OBJS)
 	ranlib $(NAME)
-
 %.o: %.c
 	$(CC) $(CCFLAGS) -c $< -o $@
 clean:
