@@ -13,10 +13,10 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int	i;
-	const char *x;
-	const char *y;
-	
+	int			i;
+	const char	*x;
+	const char	*y;
+
 	x = s1;
 	y = s2;
 	i = 0;
@@ -26,19 +26,5 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 			return (x[i] - y[i]);
 		i++;
 	}
-	return (0);
-}
-
-int	main()
-{
-	char	s1[20] = "Hello";
-	char	s2[20] = "Hellp";
-
-	if (ft_memcmp(s1, s2, 5) > 0)
-		printf("This is larger");
-	else if (ft_memcmp(s1, s2, 5) < 0)
-		printf("This is smaller");
-	else
-		printf("Equal");
 	return (0);
 }

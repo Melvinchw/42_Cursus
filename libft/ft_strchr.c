@@ -13,21 +13,11 @@
 
 char	*ft_strchr(const char *str, int c)
 {
-	while (str++)
+	while (*str)
 	{
-		if (str == c)
-			return (&str);
+		if (*str == c)
+			return ((char *) str);
+		str++;
 	}
 	return (NULL);
-}
-
-int main (int argc, char **argv)
-{
-	if (argc == 3)
-	{
-		printf("The first occurence of %c in %s is %s\n", argv[2][0], argv[1], ft_strchr(argv[1],argv[2][0]));
-	}
-	else
-		printf("\n");
-	return (0);
 }

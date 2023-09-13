@@ -14,7 +14,7 @@
 void	*ft_memset(void	*s, int c, size_t n)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (i < n)
 	{
@@ -23,13 +23,3 @@ void	*ft_memset(void	*s, int c, size_t n)
 	}
 	return (s);
 }
-/*
-int	main()
-{
-	char str[20] = "Hello, World!";
-	printf("Before memset: %s\n", str);
-	printf("After memset: %s\n", ((char *)ft_memset(str, '*', 3)));
-	return (0);
-}
-// Default memset is void *, to print, need to typecast.
-//using char *str gives undefined behaviour as 'string literal' is read only.*/

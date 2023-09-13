@@ -1,44 +1,34 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/13 22:07:05 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/13 22:07:23 by mchua            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "libft.h"
 
 char	*ft_strdup(const char *s)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*str;
-	
+
 	i = 0;
 	j = 0;
-	while (s[i] != '\0')//can use ft_strlen
-	{
+	while (s[i] != '\0')
 		i++;
-	}
-	if (!(str = (char *)malloc(sizeof(char) * (i +1))))
+	str = (char *)malloc(sizeof(char) * (i +1));
+	if (str == NULL)
 		return (NULL);
-	while (s[j] != '\0')//can use ft_strcpy
+	while (s[j] != '\0')
 	{
 		str[j] = s[j];
 		j++;
 	}
 	str[j] = '\0';
-	return (str);	
+	return (str);
 }
-/*
-int main ()
-{
-	int	i;
-	const char	*str = "Hello World";
-	const char	*ptr;
-	
-	i = 0;
-	while (str[i])
-		i++;
-	if((ptr = ft_strdup(str)) != NULL)
-		printf("%s\n", ptr);
-	else
-		printf ("Error allocating memory");
-	free((void *)ptr);
-	return (0);
-}
-*/

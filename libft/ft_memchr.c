@@ -25,7 +25,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	}
 	return (NULL);
 }
-
+/*
 int main()
 {
 	char	s[20] = "Hello";
@@ -40,7 +40,7 @@ int main()
 	else
 		printf("The value is not found");
 	return (0);
-}
+}*/
 //return value is typecasted as the initial function is a void pointer.
 //what is the use for memchr
 //what does memchr output when tested
