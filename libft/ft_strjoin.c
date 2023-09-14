@@ -24,18 +24,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	new_string = (char *)malloc(sizeof (char) * (total_len + 1));
 	if (new_string == NULL)
 		return (NULL);
-	else
+	while (i < ft_strlen(s1))
 	{
-		while (i < len1)
-		{
-			new_string[i] = s1[i];
-			i++;
-		}
-		while (j < len2)
-		{
-			new_string[i] = s2[j];
-			j++;
-		}
+		new_string[i] = s1[i];
+		i++;
+	}
+	while (j < ft_strlen(s2))
+	{
+		new_string[i + j] = s2[j];
+		j++;
 	}
 	new_string[total_len] = '\0';
 	return (new_string);

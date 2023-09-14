@@ -36,14 +36,13 @@ char	**ft_split(char const *s, char c)
 {
 	size_t	i;
 	size_t	j;
-	size_t	len;
 	unsigned int	start;
 	char	*str;
 	char	**memory;
 
 	i = 0;
 	j = 0;
-	str = s;
+	str = (char *)s;
 	memory = (char **)malloc((word_counter(s, c) + 1) * sizeof(char *));
 
 	if (memory == NULL)
@@ -55,8 +54,7 @@ char	**ft_split(char const *s, char c)
 		start = i;
 		while (s[i] != c && s[i] != '\0')
 			i++;
-		len = i - start;
-		memory[j] = ft_substr(s, start, len);
+		memory[j] = ft_substr(s, start, (i - start));
 		j++;
 	}
 	memory[j] = '\0';

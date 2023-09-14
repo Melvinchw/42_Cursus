@@ -13,11 +13,12 @@
 
 char	*ft_strchr(const char *str, int c)
 {
-	while (*str)
-	{
-		if (*str == c)
-			return ((char *) str);
-		str++;
-	}
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != c)
+		i++;
+	if (str[i] == c)
+		return ((char *) &str[i]);
 	return (NULL);
 }
