@@ -36,7 +36,9 @@ SRCS = ft_atoi.c \
 	ft_strtrim.c \
 	ft_substr.c \
 	ft_tolower.c \
-	ft_toupper.c
+	ft_toupper.c \
+	ft_strmapi.c \
+	ft_striteri.c
 
 
 NAME = libft.a
@@ -58,6 +60,7 @@ $(NAME): $(OBJS)
 clean:
 	rm -rf $(OBJS)
 fclean:
+	rm -rf $(OBJS)
 	rm -f $(NAME)
 re: fclean all
 
