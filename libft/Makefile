@@ -38,8 +38,15 @@ SRCS = ft_atoi.c \
 	ft_tolower.c \
 	ft_toupper.c \
 	ft_strmapi.c \
-	ft_striteri.c
+	ft_striteri.c \
+	ft_calloc.c
 
+BONUS_SRCS = ft_lstnew.c \
+			ft_lstadd_front.c \
+			ft_lstsize.c \
+			ft_lstlast.c \
+			ft_lstadd_back.c
+			
 
 NAME = libft.a
 
@@ -49,19 +56,28 @@ CC_FLAGS = -Wall -Wextra -Werror
 
 OBJS = $(SRCS:.c=.o)
 
+BONUS_OBJS = $(BONUS_SRCS:.c=.o)
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	ar rc -o $(NAME) $(OBJS)
 	ranlib $(NAME)
-
+	
 %.o: %.c
 	$(CC) $(CCFLAGS) -c $< -o $@
+	
 clean:
 	rm -rf $(OBJS)
+	rm -rf $(BONUS_OBJS)
+	
 fclean:
 	rm -rf $(OBJS)
+	rm -rf $(BONUS_OBJS)
 	rm -f $(NAME)
 re: fclean all
+
+bonus: $(OBJS) $(BONUS_OBJS)
+	ar rc -o $(NAME) $(OBJS) $(BONUS_OBJS)
 
 .PHONY: clean flcean re
