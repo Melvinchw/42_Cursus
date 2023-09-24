@@ -32,6 +32,13 @@ static int	word_counter(char *str, char c)
 	return (counter);
 }
 
+static void	ft_free_arr(size_t i, char **array)
+{
+	while (i--)
+		free(array[i]);
+	free(array);
+}
+
 static char	*ft_sub(char const *s, unsigned int start, size_t len)
 {
 	unsigned int		string_len;
@@ -46,7 +53,10 @@ static char	*ft_sub(char const *s, unsigned int start, size_t len)
 	memory = (char *)(malloc(sizeof (char) * (len + 1)));
 	i = 0;
 	if (memory == NULL)
+	{
+		ft_free_arr(i, s);
 		return (NULL);
+	}
 	while (i < len)
 	{
 		memory[i] = s[start];
@@ -56,24 +66,27 @@ static char	*ft_sub(char const *s, unsigned int start, size_t len)
 	memory[i] = '\0';
 	return (memory);
 }
+
 char	**ft_split(char const *s, char c)
 {
-	size_t	i;
-	size_t	j;
+	size_t			i;
+	size_t			j;
 	unsigned int	start;
-	char	*str;
-	char	**memory;
+	char			*str;
+	char			**memory;
 
 	i = 0;
 	j = 0;
 	str = (char *)s;
 	memory = (char **)malloc((word_counter(s, c) + 1) * sizeof(char *));
-
 	if (memory == NULL)
+	{
+		ft_free_arr(i, s);
 		return (NULL);
+	}
 	while (i < ft_strlen(s))
 	{
-		while(s[i] == c)
+		while (s[i] == c)
 			i++;
 		start = i;
 		while (s[i] != c && s[i] != '\0')

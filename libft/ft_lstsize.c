@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/24 10:12:34 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/24 10:13:39 by mchua            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "libft.h"
 
 int	ft_lstsize(t_list *lst)
@@ -12,7 +23,7 @@ int	ft_lstsize(t_list *lst)
 	while (ptr -> next != NULL)
 	{
 		counter++;
-		ptr = ptr->next;	
+		ptr = ptr->next;
 	}
 	return ((int)counter);
 }
