@@ -14,10 +14,16 @@
 static size_t	intcounter(int n)
 {
 	size_t	i;
-
+	
 	i = 1;
-	while (n / 10 != 0)
-		i++;
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		n /= 10;
+		if (n != 0)
+			i++;
+	}
 	return (i);
 }
 
@@ -29,16 +35,16 @@ char	*ft_itoa(int n)
 
 	num = n;
 	count = intcounter(n);
-	str_num = (char *)malloc((sizeof (char) * count) + 1);
-	if (str_num == NULL)
-		return (NULL);
 	if (n < 0)
 	{
 		num *= -1;
 		count++;
 	}
+	str_num = (char *)malloc((sizeof (char) * count) + 1);
+	if (str_num == NULL)
+		return (NULL);
 	str_num[count] = '\0';
-	while (count != 0)
+	while (count > 0)
 	{
 		count--;
 		str_num[count] = num % 10 + '0';

@@ -13,6 +13,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	else if (!f)
 		return (ft_strdup(s));
 	result = ft_strdup(s);
+	if (!result)
+		return (NULL);
 	while (s[i] != '\0')
 	{
 		result[i] = (*f)(i, s[i]);

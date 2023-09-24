@@ -18,10 +18,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t				i;
 
 	string_len = ft_strlen ((char *)s);
-	if (!s || start >= string_len)
+	if (!s || start >= string_len || len == 0)
 		return (ft_strdup(""));
-	if (len > string_len)
-		len = string_len;
+	if (len > string_len - start)
+		len = string_len - start;
 	memory = (char *)(malloc(sizeof (char) * (len + 1)));
 	i = 0;
 	if (memory == NULL)
