@@ -39,7 +39,10 @@ SRCS = ft_atoi.c \
 	ft_toupper.c \
 	ft_strmapi.c \
 	ft_striteri.c \
-	ft_calloc.c
+	ft_calloc.c \
+	ft_strlcat.c \
+	ft_memmove.c \
+	ft_strnstr.c
 
 BONUS_SRCS = ft_lstnew.c \
 			ft_lstadd_front.c \
@@ -54,7 +57,7 @@ BONUS_SRCS = ft_lstnew.c \
 
 NAME = libft.a
 
-CC = clang
+CC = cc
 
 CC_FLAGS = -Wall -Wextra -Werror
 
@@ -69,7 +72,7 @@ $(NAME): $(OBJS)
 	ranlib $(NAME)
 	
 %.o: %.c
-	$(CC) $(CCFLAGS) -c $< -o $@
+	$(CC) $(CC_FLAGS) -c $< -o $@
 	
 clean:
 	rm -rf $(OBJS)

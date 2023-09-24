@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/13 21:59:57 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/13 22:00:14 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/24 16:01:49 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/24 16:01:51 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
+#include "stdio.h"
 
-int	ft_strlen(const char *str)
+int main()
 {
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0')
-		i++;
-	return (i);
+	int	count;
+	void	*ptr;
+	
+	count = printf("%s", "Hello");
+	printf("%p", ptr);
+	return (0);
 }
+

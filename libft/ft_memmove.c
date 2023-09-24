@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 20:31:31 by mchua             #+#    #+#             */
-/*   Updated: 2023/08/21 20:31:33 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/24 10:55:54 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/24 10:55:55 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+void	*ft_memmove(void *dest, const void *src, size_t len)
 {
-	size_t			i;
-	unsigned char	*x;
-	unsigned char	*y;
+	unsigned char	*dest_buffer;
+	unsigned char	*src_buffer;
 
-	x = (unsigned char *)s1;
-	y = (unsigned char *)s2;
-	i = 0;
-	while (i < n)
+	if (!dest && !src)
+		return (NULL);
+	dest_buffer = (unsigned char *)dest;
+	src_buffer = (unsigned char *)src;
+	if (dest_buffer < src_buffer)
 	{
-		if (x[i] != y[i])
-			return (x[i] - y[i]);
-		i++;
+		while (len--)
+			*(dest_buffer++) = *(src_buffer++);
 	}
-	return (0);
+	else if (dest_buffer > src_buffer)
+	{
+		while (len--)
+			dest_buffer[len] = src_buffer[len];
+	}
+	return (dest);
 }

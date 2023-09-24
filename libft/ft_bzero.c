@@ -13,7 +13,7 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < n)
@@ -22,14 +22,3 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-/*
-int	main()
-{
-	char	s[20] = "Hello";
-	
-	printf("Original string is: %s\n", s);
-	ft_bzero(s, 3);
-	printf("Final string is: %s\n", s);
-	return (0);
-}
-*/
