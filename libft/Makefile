@@ -69,7 +69,6 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	ar rc -o $(NAME) $(OBJS)
-	ranlib $(NAME)
 	
 %.o: %.c
 	$(CC) $(CC_FLAGS) -c $< -o $@

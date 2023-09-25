@@ -13,11 +13,9 @@
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned int	string_len;
 	unsigned int	i;
 	char			*result;
 
-	string_len = ft_strlen((char *)s);
 	i = 0;
 	if (!s)
 		return (ft_strdup(""));
