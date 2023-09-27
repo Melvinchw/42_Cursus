@@ -6,7 +6,7 @@
 #    By: mchua <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 20:46:50 by mchua             #+#    #+#              #
-#    Updated: 2023/09/05 20:46:52 by mchua            ###   ########.fr        #
+#    Updated: 2023/09/27 19:47:51 by mchua            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 SRCS = ft_atoi.c \
@@ -59,20 +59,23 @@ NAME = libft.a
 
 CC = cc
 
-CC_FLAGS = -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror -I.
 
 OBJS = $(SRCS:.c=.o)
 
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
-all: $(NAME)
-
 $(NAME): $(OBJS)
 	ar rc -o $(NAME) $(OBJS)
 	
+bonus: $(NAME) $(BONUS_OBJS)
+	ar rc -o $(NAME) $(BONUS_OBJS)
+
 %.o: %.c
 	$(CC) $(CC_FLAGS) -c $< -o $@
 	
+all: $(NAME) bonus
+
 clean:
 	rm -rf $(OBJS)
 	rm -rf $(BONUS_OBJS)
@@ -81,9 +84,8 @@ fclean:
 	rm -rf $(OBJS)
 	rm -rf $(BONUS_OBJS)
 	rm -f $(NAME)
+
 re: fclean all
 
-bonus: $(OBJS) $(BONUS_OBJS)
-	ar rc -o $(NAME) $(OBJS) $(BONUS_OBJS)
 
-.PHONY: clean flcean re
+.PHONY: clean fclean re all
