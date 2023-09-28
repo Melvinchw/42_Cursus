@@ -9,99 +9,13 @@
 /*   Updated: 2023/09/24 15:50:29 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "stdio.h"
-#include "stdarg.h"
-#include "stdlib.h"
-#include "unistd.h"
+#include "libftprintf.h"
 
-int	ft_putchar(char c)
-{
-	write(1, &c, 1);
-	return (1);
-}
-
-int	ft_putstr(char *str)
+static int	printformat(char specifier, va_list ap)
 {
 	int	count;
-	
-	count = 0;
-	while (*str != '\0')
-	{
-		count += ft_putchar(*str);
-		str++;
-	}
-	return (count);
-}
 
-int	ft_putnbr(int n)
-{
-	long	num;
-	int	count;
-	
-	num = n;
 	count = 0;
-	if (n < 0)
-	{
-		num *= -1;
-		ft_putchar('-');
-		count += 1;
-	}
-	if (num >= 10)
-	{
-		count += 1 + ft_putnbr(num / 10);
-		ft_putchar((num % 10) + '0');
-	}
-	else
-		count += ft_putchar(num + '0');
-	return (count);
-}
-
-int	ft_puthex(unsigned int n, char c)
-{
-	int	count;
-	char	*list;
-	unsigned long	num;
-	
-	count = 0;
-	num = n;
-	if (c == 'x')
-		list = "0123456789abcdef";
-	else if (c == 'X')
-		list = "0123456789ABCDEF";
-	if (n >= 16)
-	{
-		count += 1 + ft_puthex((num / 16), c);
-		ft_putchar(list[num % 16]);
-	}
-	else
-		count += ft_putchar(list[num % 16]);
-	return (count);
-}
-
-int	ft_putunsigned(unsigned int n)
-{
-	unsigned long	num;
-	int	count;
-	
-	num = n;
-	count = 0;
-
-	if (num >= 10)
-	{
-		count += 1 + ft_putunsigned(num / 10);
-		ft_putchar((num % 10) + '0');
-	}
-	else
-		count += ft_putchar(num + '0');
-	return (count);
-}
-
-int	printformat(char specifier, va_list ap)
-{
-	int	count;
-	
-	count = 0;
-	
 	if (specifier == 'c')
 		count += ft_putchar(va_arg(ap, int));
 	else if (specifier == 's')
@@ -112,16 +26,18 @@ int	printformat(char specifier, va_list ap)
 		count += ft_putunsigned(va_arg(ap, int));
 	else if (specifier == 'x' || specifier == 'X')
 		count += ft_puthex(va_arg(ap, unsigned int), specifier);
-	else if (specifier == '%')//when this format specifier is below, undefined behaviour found
+	else if (specifier == '%')
 		count += ft_putchar('%');
+	else if (specifier == 'p')
+		count += ft_putvoid(va_arg(ap, unsigned long int));
 	return (count);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	int	count;
-	
+	int		count;
+
 	va_start(ap, format);
 	count = 0;
 	while (*format != '\0')
@@ -140,17 +56,293 @@ int	ft_printf(const char *format, ...)
 	return (count);
 }
 
-int main()
+int main ()
 {
-	int	count;
-	
-	count = 0;
-	//ft_printf("%d\n",ft_printf("%c\n",' '));
-	//ft_printf("%d\n",ft_printf("%s\n", "Hello"));
-	//count = ft_printf("%d\n", -123456);
-	count += ft_printf("%u", -123);
-	ft_printf("\n%d\n", count);
-	printf("%%");
-	return (0);
-	
+    int count;
+    int printf_count;
+    char	*ptr;
+    
+    ptr = "Hello";
+    count = 0;
+    printf_count = 0;
+    //Test for %c
+    //Printable characters
+    ft_printf("============ Test Case 1: %s ============\n", "%c");
+    ft_printf("=============== Printables ===============\n");
+    count += ft_printf("U_Output: %c\n", 'c');
+    printf_count +=printf("E_Output: %c\n", 'c');
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Special Characters
+    ft_printf("============ Special ============\n");
+    count += ft_printf("U_Output: %c\n", '!');
+    printf_count +=printf("E_Output: %c\n", '!');
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    
+    ft_printf("============ Non - Printables ============\n");
+    count += ft_printf("U_Output: %c\n", '\t');
+    printf_count +=printf("E_Output: %c\n", '\t');
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+        
+    //Test for %s
+    //Empty string
+    ft_printf("============ Test Case 2: %s ============\n", "%s");
+    ft_printf("=============== Empty String ===============\n");
+    count += ft_printf("U_Output: %s\n", "");
+    printf_count +=printf("E_Output: %s\n", "");
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Whitespace
+    ft_printf("=============== Whitespace ===============\n");
+    count += ft_printf("U_Output: %s\n", " ");
+    printf_count +=printf("E_Output: %s\n", " ");
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //String with ASCII
+    ft_printf("=============== ASCII String ===============\n");
+    count += ft_printf("U_Output: %s\n", "Hello World");
+    printf_count +=printf("E_Output: %s\n", "Hello World");
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //String with non ASCII
+    //String with special characters
+    ft_printf("============= Special String =============\n");
+    count += ft_printf("U_Output: %s\n", "!@#$%^&");
+    printf_count +=printf("E_Output: %s\n", "!@#$%^&");
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    
+    //Test for %p
+    //Valid memory address
+    ft_printf("============ Test Case 3: %s ============\n", "%p");
+    ft_printf("=============== Valid Address ===============\n");
+    count += ft_printf("U_Output: %p\n", ptr);
+    printf_count +=printf("E_Output: %p\n", ptr);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Null ptr
+    ft_printf("=============== NULL Pointer ===============\n");
+    count += ft_printf("U_Output: %p\n", NULL);
+    printf_count +=printf("E_Output: %p\n", NULL);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Test for %d/i
+    //Positive integer
+    ft_printf("============ Test Case 4: %s ============\n", "%d");
+    ft_printf("=============== Positive Int ===============\n");
+    count += ft_printf("U_Output: %d\n", 42);
+    printf_count +=printf("E_Output: %d\n", 42);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Negative integer
+    ft_printf("=============== Negative Int ===============\n");
+    count += ft_printf("U_Output: %d\n", -42);
+    printf_count +=printf("E_Output: %d\n", -42);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Zero
+    ft_printf("================== Zero ==================\n");
+    count += ft_printf("U_Output: %d\n", 0);
+    printf_count +=printf("E_Output: %d\n", 0);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Min value
+    ft_printf("================== Min Value ==================\n");
+    count += ft_printf("U_Output: %d\n", INT_MIN);
+    printf_count +=printf("E_Output: %d\n", INT_MIN);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Max value
+    ft_printf("================== Max Value ==================\n");
+    count += ft_printf("U_Output: %d\n", INT_MAX);
+    printf_count +=printf("E_Output: %d\n", INT_MAX);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    
+    ft_printf("============ Test Case 5: %s ============\n", "%i");
+    ft_printf("=============== Positive Int ===============\n");
+    count += ft_printf("U_Output: %i\n", 42);
+    printf_count +=printf("E_Output: %i\n", 42);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Negative integer
+    ft_printf("=============== Negative Int ===============\n");
+    count += ft_printf("U_Output: %i\n", -42);
+    printf_count +=printf("E_Output: %i\n", -42);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Zero
+    ft_printf("================== Zero ==================\n");
+    count += ft_printf("U_Output: %i\n", 0);
+    printf_count +=printf("E_Output: %i\n", 0);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Min value
+    ft_printf("================== Min Value ==================\n");
+    count += ft_printf("U_Output: %i\n", INT_MIN);
+    printf_count +=printf("E_Output: %i\n", INT_MIN);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Max value
+    ft_printf("================== Max Value ==================\n");
+    count += ft_printf("U_Output: %i\n", INT_MAX);
+    printf_count +=printf("E_Output: %i\n", INT_MAX);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    
+    //Test for %u
+    //Positive integer
+    ft_printf("============ Test Case 6: %s ============\n", "%u");
+    ft_printf("=============== Positive Int ===============\n");
+    count += ft_printf("U_Output: %u\n", 42);
+    printf_count +=printf("E_Output: %u\n", 42);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Zero
+    ft_printf("================== Zero ==================\n");
+    count += ft_printf("U_Output: %u\n", 0);
+    printf_count +=printf("E_Output: %u\n", 0);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Unsigned max value
+    ft_printf("================== Zero ==================\n");
+    count += ft_printf("U_Output: %u\n", UINT_MAX);
+    printf_count +=printf("E_Output: %u\n", UINT_MAX);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Negative value
+    ft_printf("=============== Negative Value ===============\n");
+    count += ft_printf("U_Output: %u\n", -1);
+    printf_count +=printf("E_Output: %u\n", -1);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Test for %x/%X
+    //Positive integer
+    ft_printf("============ Test Case 7: %s ============\n", "%x");
+    ft_printf("=============== Positive Int ===============\n");
+    count += ft_printf("U_Output: %x\n", 18657);
+    printf_count +=printf("E_Output: %x\n", 18657);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Negative integer
+    ft_printf("=============== Negative Int ===============\n");
+    count += ft_printf("U_Output: %x\n", -18657);
+    printf_count +=printf("E_Output: %x\n", -18657);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Zero
+    ft_printf("================== Zero ==================\n");
+    count += ft_printf("U_Output: %x\n", 0);
+    printf_count +=printf("E_Output: %x\n", 0);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Min value
+    //Max value
+    ft_printf("=============== Max Value ===============\n");
+    count += ft_printf("U_Output: %x\n", UINT_MAX);
+    printf_count +=printf("E_Output: %x\n", UINT_MAX);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+        
+    //Test for %X
+    ft_printf("============ Test Case 8: %s ============\n", "%X");
+    ft_printf("=============== Positive Int ===============\n");
+    count += ft_printf("U_Output: %X\n", 18657);
+    printf_count +=printf("E_Output: %X\n", 18657);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Negative integer
+    ft_printf("=============== Negative Int ===============\n");
+    count += ft_printf("U_Output: %X\n", -18657);
+    printf_count +=printf("E_Output: %X\n", -18657);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Zero
+    ft_printf("================== Zero ==================\n");
+    count += ft_printf("U_Output: %X\n", 0);
+    printf_count +=printf("E_Output: %X\n", 0);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Min value
+    //Max value
+    ft_printf("=============== Max Value ===============\n");
+    count += ft_printf("U_Output: %X\n", UINT_MAX);
+    printf_count +=printf("E_Output: %X\n", UINT_MAX);
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    //Test for %%
+    //Prints %
+    ft_printf("============ Test Case 9: %s ============\n", "%%");
+    ft_printf("=============== Print %s ===============\n", "%%");
+    count += ft_printf("U_Output: %%\n");
+    printf_count +=printf("E_Output: %%\n");
+    if (count == printf_count)
+        ft_printf("====== Success! ======\n\n");
+    else
+        ft_printf("====== Failure! ======\n\n");
+    return (0);
 }
