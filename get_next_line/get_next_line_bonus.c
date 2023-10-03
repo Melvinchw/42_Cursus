@@ -1,15 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 20:32:32 by mchua             #+#    #+#             */
-/*   Updated: 2023/10/03 20:32:33 by mchua            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char    *ft_free(char **str)
 {
@@ -107,8 +96,8 @@ char	*get_next_line(int fd)
 {
 //need a static variable to store the newly appended string after returning the line
 //need a char ptr to point to the string that will be returned
-	static char *storage = {0};
-	char        *str;
+	static char *storage[fd];
+	char        *str;	
 
 	if (fd < 0)
 		return (NULL);
