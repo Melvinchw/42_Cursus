@@ -96,7 +96,7 @@ char	*get_next_line(int fd)
 {
 //need a static variable to store the newly appended string after returning the line
 //need a char ptr to point to the string that will be returned
-	static char *storage[fd];
+	static char *storage[OPEN_MAX];
 	char        *str;	
 
 	if (fd < 0)
