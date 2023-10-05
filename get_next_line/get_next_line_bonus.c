@@ -3,7 +3,7 @@
 char    *ft_free(char **str)
 {
     free (*str);
-    *str = NULL;
+    *str = (NULL);
     return (NULL);
 }
 
@@ -19,7 +19,7 @@ char    *clean_buffer(char *storage)
         new_storage = NULL;
         return (ft_free(&storage));
     }
-    len = storage = ptr + 1;
+    len = storage - ptr + 1;
     new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
 //free the content at the old storage as a new_storage is already stored
 //with the new line of string
@@ -59,7 +59,7 @@ char    *read_buffer(int fd, char *storage)
 //buffer is used as a temporary storage for the string to be returned. Needs to be
 //Malloced and initialized to NULL
     int     index_readed;
-    buffer = (char)malloc (sizeof(char *) * (BUFFER_SIZE + 1));
+    buffer = (char *)malloc (sizeof(char *) * (BUFFER_SIZE + 1));
 //if memory allocation is unsuccessful, free the content pointed to
 //by the storage pointer
     if (!buffer)
@@ -96,8 +96,8 @@ char	*get_next_line(int fd)
 {
 //need a static variable to store the newly appended string after returning the line
 //need a char ptr to point to the string that will be returned
-	static char *storage[OPEN_MAX];
-	char        *str;	
+	static char	*storage[OPEN_MAX];
+	char	*line;	
 
 	if (fd < 0)
 		return (NULL);
@@ -106,20 +106,20 @@ char	*get_next_line(int fd)
 //but no '\n' then read buffer function is called to return a new
 //string. Second condition states that if the pointer pointing is empty
 //use readbuffer function to access a file dictated by the file descriptor
-	if ((storage[fd] && !ft_strchr(storage, '\n')) || !storage[fd])
+	if ((storage[fd] && !ft_strchr(storage[fd], '\n')) || !storage[fd])
 		storage[fd] = read_buffer(fd, storage[fd]);
 //After read buffer function is called and it returns NULL instead of string
 //return NULL as the file we are reading is empty
 	if (!storage[fd])
 		return (NULL);
 //Direct the line pointer to a whole piece of string returned by new_line function
-    line = new_line(storage[fd]);
+	line = new_line(storage[fd]);
 //if line pointer is not pointing anything, free the entire storage
-    if (!line)
-        return (ft_free(storage[fd]));
+	if (!line)
+		return (ft_free(&storage[fd]));
 //if line pointer points to the new string line to be printed, free the line that was
 //returned by calling clean_buffer which will return the next line of string onwards
-    storage[fd] = clean_buffer(storage[fd]);
+	storage[fd] = clean_buffer(storage[fd]);
 //return this line that was read and to be printed
-    return (line);
+	return (line);
 }
