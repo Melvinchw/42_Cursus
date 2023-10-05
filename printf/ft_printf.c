@@ -9,7 +9,7 @@
 /*   Updated: 2023/09/24 15:50:29 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static int	printformat(char specifier, va_list ap)
 {
@@ -29,7 +29,7 @@ static int	printformat(char specifier, va_list ap)
 	else if (specifier == '%')
 		count += ft_putchar('%');
 	else if (specifier == 'p')
-		count += ft_putvoid(va_arg(ap, unsigned long int));
+		count += ft_putvoid(va_arg(ap, void *));
 	return (count);
 }
 
@@ -55,7 +55,7 @@ int	ft_printf(const char *format, ...)
 	}
 	return (count);
 }
-
+/*
 int main ()
 {
     int count;
@@ -345,4 +345,4 @@ int main ()
     else
         ft_printf("====== Failure! ======\n\n");
     return (0);
-}
+}*/

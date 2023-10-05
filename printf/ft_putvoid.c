@@ -9,7 +9,7 @@
 /*   Updated: 2023/09/27 20:22:44 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static int	ft_putvhex(unsigned long int n)
 {
@@ -21,14 +21,14 @@ static int	ft_putvhex(unsigned long int n)
 	if (n >= 16)
 	{
 		count += 1 + ft_putvhex(n / 16);
-		ft_putchar(list[n % 16] + '0');
+		ft_putchar(list[n % 16]);
 	}
 	else
-		count += ft_putchar(list[n % 16] + '0');
+		count += ft_putchar(list[n % 16]);
 	return (count);
 }
 
-int	ft_putvoid(unsigned long int n)
+int	ft_putvoid(void *n)
 {
 	int	count;
 
@@ -38,7 +38,7 @@ int	ft_putvoid(unsigned long int n)
 	else
 	{
 		count += ft_putstr("0x");
-		count += ft_putvhex(n);
+		count += ft_putvhex((unsigned long int)n);
 	}
 	return (count);
 }
