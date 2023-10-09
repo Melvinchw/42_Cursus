@@ -9,7 +9,7 @@
 /*   Updated: 2023/09/13 22:00:14 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
+#include "libft.h"
 
 int	ft_strlen(const char *str)
 {

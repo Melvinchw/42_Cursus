@@ -5,46 +5,34 @@ int	ft_strlen(const char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	while (str[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_free(char **str)
 {
-	int		i;
-	int		j;
-	char	*str;
-
-	i = 0;
-	j = 0;
-	while (s[i] != '\0')
-		i++;
-	str = (char *)malloc(sizeof(char) * (i +1));
-	if (!str)
-		return (NULL);
-	while (s[j] != '\0')
-	{
-		str[j] = s[j];
-		j++;
-	}
-	str[j] = '\0';
-	return (str);
+	free (*str);
+	*str = NULL;
+	return (NULL);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	unsigned int		string_len;
 	char				*memory;
 	size_t				i;
 
+	i = 0;
 	string_len = ft_strlen ((char *)s);
 	if (!s || start >= string_len || len == 0)
-		return (ft_strdup(""));
+		return (0);
 	if (len > string_len - start)
 		len = string_len - start;
-	memory = (char *)(malloc(sizeof (char) * (len + 1)));
-	i = 0;
+	memory = (char *)(malloc(sizeof(char) * (len + 1)));
 	if (!memory)
 		return (NULL);
 	while (i < len)
@@ -57,19 +45,24 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (memory);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new_string;
 	int		i;
 	int		j;
-	int		total_len;
 
 	i = 0;
 	j = 0;
-	total_len = ft_strlen(s1) + ft_strlen(s2);
-	new_string = (char *)malloc(sizeof (char) * (total_len + 1));
+	if (!s1)
+	{
+		s1 = malloc(sizeof(char) * 1);
+		if (!s1)	
+			return (NULL);
+		s1[0] = 0;
+	}
+	new_string = (char *)malloc(sizeof (char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!new_string)
-		return (NULL);
+		return (ft_free(&s1));
 	while (i < ft_strlen(s1))
 	{
 		new_string[i] = s1[i];
@@ -80,11 +73,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		new_string[i + j] = s2[j];
 		j++;
 	}
-	new_string[total_len] = '\0';
+	new_string[i + j] = '\0';
+	free(s1);
 	return (new_string);
 }
 
-char	*ft_strchr(const char *str, int c)
+char	*ft_strchr(char *str, int c)
 {
 	int	i;
 	int	len;
@@ -94,8 +88,8 @@ char	*ft_strchr(const char *str, int c)
 	while (i <= len)
 	{
 		if (str[i] == (char)c)
-			return ((char *) &str[i]);
+			return (&str[i]);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
