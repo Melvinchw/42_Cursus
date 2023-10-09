@@ -1,15 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 20:32:32 by mchua             #+#    #+#             */
-/*   Updated: 2023/10/09 21:18:38 by mchua            ###   ########.fr       */
+/*   Created: 2023/10/09 21:31:00 by mchua             #+#    #+#             */
+/*   Updated: 2023/10/09 21:31:03 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*clean_buffer(char *storage)
 {
@@ -75,18 +75,18 @@ static char	*read_buffer(int fd, char *storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage = NULL;
+	static char	*storage[MAX_FD];
 	char		*line;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
 		return (NULL);
-	if ((storage && !ft_strchr(storage, '\n')) || !storage)
-		storage = read_buffer(fd, storage);
-	if (!storage)
+	if ((storage[fd] && !ft_strchr(storage[fd], '\n')) || !storage[fd])
+		storage[fd] = read_buffer(fd, storage[fd]);
+	if (!storage[fd])
 		return (NULL);
-	line = new_line(storage);
+	line = new_line(storage[fd]);
 	if (!line)
-		return (ft_free(&storage));
-	storage = clean_buffer(storage);
+		return (ft_free(&storage[fd]));
+	storage[fd] = clean_buffer(storage[fd]);
 	return (line);
 }
