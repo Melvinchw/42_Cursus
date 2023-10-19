@@ -6,32 +6,32 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 20:32:32 by mchua             #+#    #+#             */
-/*   Updated: 2023/10/09 21:18:38 by mchua            ###   ########.fr       */
+/*   Updated: 2023/10/19 22:08:55 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-static char	*clean_buffer(char *storage)
+static char	*remove_buffer(char *storage)
 {
-	char			*new_storage;
-	char			*ptr;
-	unsigned int	len;
+	char			*new_buffer;
+	char			*newline_add;
+	unsigned int	line_len;
 
-	ptr = ft_strchr(storage, '\n');
-	if (!ptr)
+	newline_add = ft_strchr(storage, '\n');
+	if (!newline_add)
 	{
-		new_storage = NULL;
+		new_buffer = NULL;
 		return (ft_free(&storage));
 	}
 	else
-		len = (ptr - storage) + 1;
-	if (!storage[len])
+		line_len = (newline_add - storage) + 1;
+	if (!storage[line_len])
 		return (ft_free(&storage));
-	new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
+	new_buffer = ft_substr(storage, line_len, ft_strlen(storage) - line_len);
 	ft_free(&storage);
-	if (!new_storage)
+	if (!new_buffer)
 		return (NULL);
-	return (new_storage);
+	return (new_buffer);
 }
 
 static char	*new_line(char *storage)
@@ -87,6 +87,16 @@ char	*get_next_line(int fd)
 	line = new_line(storage);
 	if (!line)
 		return (ft_free(&storage));
-	storage = clean_buffer(storage);
+	storage = remove_buffer(storage);
 	return (line);
 }
+/*
+int main(void){
+ int fd; int i;
+ fd = open("text.txt", O_RDONLY);
+ i = 0;
+ while (i < 40) {
+  printf("%s", get_next_line(fd));  i++;
+ } return (0);
+}
+*/
