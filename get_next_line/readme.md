@@ -26,7 +26,10 @@
 	        return (NULL);
 	    return (new_storage);
 	}
- 
+## Function breakdown(clean_buffer)
+1. `ptr` is declared as a pointer to the position of `\n`. This is done by using `strchr` function which returns the first occurence of the `\n` character.
+2. `line` is declared to extract the string that we would like to return.
+3. `len` is declared to determine the length that we would like to extract. This is done by subtracting `ft_strlen(storage)` pointer with `ptr` pointer + 1 to account for a NULL 
 //free the content at the old storage as a new_storage is already stored
 //with the new line of string
 
@@ -43,38 +46,38 @@
 		return (NULL);
 	    return (line);
 	}
-## Function breakdown
+## Function breakdown(new_line)
 ### The purpose of this function is to tap into the storage and extract a string up to the first `\n`.
 1. `ptr` is declared as a pointer to the position of `\n`. This is done by using `strchr` function which returns the first occurence of the `\n` character.
 2. `line` is declared to extract the string that we would like to return.
 3. `len` is declared to determine the length that we would like to extract. This is done by subtracting `storage` pointer with `ptr` pointer + 1 to account for a NULL character. This is possible because both pointers are pointing to an array with sequential index.
-4. 
 5. `ft_substr` is used to extract the line and subsequently, line is returned. 
 
-	char    *read_buffer(int fd, char *storage)
-	{
-	    char    *buffer;
-	    int     index_readed;
-	    buffer = (char)malloc (sizeof(char *) * (BUFFER_SIZE + 1));
-	    if (!buffer)
-	        return (ft_free(&storage));
-	    buffer[0] = '\0';
-	    index_readed = 1;
-	    while (index_readed > 0 && !ft_strchr(buffer, '\n'))
-	    {
-	        index_readed = read(fd, buffer, BUFFER_SIZE);
-	        if (index_readed > 0)
-	        {
-	            buffer[index_readed] = '\0';
-	            storage = ft_strjoin(storage, buffer);
-	        }
-	    }
-	    free (buffer);
-	    if (index_readed == -1)
-	        return (ft_free(&storage));
-	    return (storage);
-	}
-## Function breakdown
+		char    *read_buffer(int fd, char *storage)
+		{
+		    char    *buffer;
+		    int     index_readed;
+		    buffer = (char)malloc (sizeof(char *) * (BUFFER_SIZE + 1));
+		    if (!buffer)
+		        return (ft_free(&storage));
+		    buffer[0] = '\0';
+		    index_readed = 1;
+		    while (index_readed > 0 && !ft_strchr(buffer, '\n'))
+		    {
+		        index_readed = read(fd, buffer, BUFFER_SIZE);
+		        if (index_readed > 0)
+		        {
+		            buffer[index_readed] = '\0';
+		            storage = ft_strjoin(storage, buffer);
+		        }
+		    }
+		    free (buffer);
+		    if (index_readed == -1)
+		        return (ft_free(&storage));
+		    return (storage);
+		}
+
+## Function breakdown(read_buffer)
 The purpose of this function is to access the file according to the file descriptor. It is then supposed to read file up to buffer size that was determined upon compilation of program. This function is written to read the entire file in one go. Doing this will cause time out in the event that buffer size is too small.
 1. `buffer` array is declared so that we can dynamically allocate memory to it.
 2. `index-readed` is declared to help keep track of how many characters were read as `read` returns the number of characters read. It is initialized as 1 to indicate
@@ -105,7 +108,7 @@ The purpose of this function is to access the file according to the file descrip
 	    	storage[fd] = clean_buffer(storage[fd]);
 	    	return (line);
 	}
-# Function breakdown
+# Function breakdown(get_next_line)
 1. To start with this function, we need a `static variable`. Static variable is used to store newly appended string after returning the line.
 2. A char ptr `line` is declared and initialized to point to the string that will be returned at the end of the function.
 3. Static variable `Storage[fd]` is pointing to the string that is stored in the buffer when `read_buffer` is called.
