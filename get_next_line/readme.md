@@ -43,15 +43,13 @@
 		return (NULL);
 	    return (line);
 	}
- 
-//Ptr will point to the position of the '\n'
-//Storage pointer is at the start of the string
-//ptr address is pointing to the address of the first occurence
-// of '\n' which is in the same string as storage address
-//+1 so we can add a null terminator in substr
-//we will use substring to extract the first line by passing in
-//the entire string, the start and length to extract
-//Account for if line does not contain anything
+## Function breakdown
+### The purpose of this function is to tap into the storage and extract a string up to the first `\n`.
+1. `ptr` is declared as a pointer to the position of `\n`. This is done by using `strchr` function which returns the first occurence of the `\n` character.
+2. `line` is declared to extract the string that we would like to return.
+3. `len` is declared to determine the length that we would like to extract. This is done by subtracting `storage` pointer with `ptr` pointer + 1 to account for a NULL character. This is possible because both pointers are pointing to an array with sequential index.
+4. 
+5. `ft_substr` is used to extract the line and subsequently, line is returned. 
 
 	char    *read_buffer(int fd, char *storage)
 	{
@@ -76,30 +74,24 @@
 	        return (ft_free(&storage));
 	    return (storage);
 	}
-
-//purpose of this function is to read a file up to a BUFFER_SIZE determined
-//end of the day we want to read the entire file and store it in a buffer
-//followed by returning the entire read string 
-//buffer is used as a temporary storage for the string to be returned. Needs to be
-//Malloced and initialized to NULL
-//if memory allocation is unsuccessful, free the content pointed to
-//by the storage pointer
-//if memory allocation is successful, initialize buffer to NULL
-//initializing the index_readed to 1 as 0 means EOF and < 0 means error as stated by
-//mandatory file descriptor
-//Condition 1 refers to if its not EOF
-//Condition 2 refers to if \n is not found
-//If both condition not met, loop will continue until EOF
-//Read function will return the number of characters read into the buffer.
-//Up till buffer_size, then loop again to start a again until EOF.
-//As the string read has been stored in the storage pointer after strjoin
-//free the buffer to prevent memory leak
-//return the entire string
+## Function breakdown
+The purpose of this function is to access the file according to the file descriptor. It is then supposed to read file up to buffer size that was determined upon compilation of program. This function is written to read the entire file in one go. Doing this will cause time out in the event that buffer size is too small.
+1. `buffer` array is declared so that we can dynamically allocate memory to it.
+2. `index-readed` is declared to help keep track of how many characters were read as `read` returns the number of characters read. It is initialized as 1 to indicate
+   at there is data in the file.
+4. `buffer` is malloced to buffer size + 1 to account for all the characters and a NULL terminator. Erro handling is done for memory leaks here. If allocation is unsuccessful, we will call for `ft_free`
+5. A `while` loop is used with the following conditions:
+> - `index_readed` is greater than 0 to indicate there is data in the file
+> - `strchr` is not `\n` so that the loop continues until it hits the new line.
+6. Buffer is stored with characters that was read. `strjoin` is used to join characters stored in `buffer` into `storage`. This keeps looping until the conditions are not met and it exits the loop.
+7. Once the loop is exited. Since storage contains the whole string. We can `free` the buffer.
+8. At the end of the file, we also have to check if there was an error reading file, this is indicated by index_readed == -1. If so, we have to call for `ft_free` function.
+9. Return `storage`
 
 	char	*get_next_line(int fd)
 	{
 		static char *storage[fd];
-		char        *str;	
+		char        *line;	
 	
 		if (fd < 0)
 			return (NULL);
@@ -113,20 +105,21 @@
 	    	storage[fd] = clean_buffer(storage[fd]);
 	    	return (line);
 	}
-1. To start with this function, we need a 'static variable'. Static variable is used to store newly appended string after returning the line.
-> 	**How static variables work?**
->>	- Variables are stored in the data portion of the memory. If the value is initialized, it will remain even if the programme stops. However, each time a programme is run, if the value is altered it will be reflected in the variables. These variables are stored within the function and can be used to store data values when the previous function call do something to the data eg get_next_line.
-//need a static variable to store the newly appended string after returning the line
-//need a char ptr to point to the string that will be returned
-//This storage[fd] is pointing to the string that will be stored
-//the condition states that if there is a string being pointed to
-//but no '\n' then read buffer function is called to return a new
-//string. Second condition states that if the pointer pointing is empty
-//use readbuffer function to access a file dictated by the file descriptor
-//After read buffer function is called and it returns NULL instead of string
-//return NULL as the file we are reading is empty
-//Direct the line pointer to a whole piece of string returned by new_line function
-//if line pointer is not pointing anything, free the entire storage
-//if line pointer points to the new string line to be printed, free the line that was
-//returned by calling clean_buffer which will return the next line of string onwards
-//return this line that was read and to be printed
+# Function breakdown
+1. To start with this function, we need a `static variable`. Static variable is used to store newly appended string after returning the line.
+2. A char ptr `line` is declared and initialized to point to the string that will be returned at the end of the function.
+3. Static variable `Storage[fd]` is pointing to the string that is stored in the buffer when `read_buffer` is called.
+4. Conditions for the `get_next_line` functions is stated below:
+> - if int `fd` is lesser than 0, this indicates error. As such it should return `NULL`
+> - if `storage[fd]` has a value and have not reached `\n` or `storage[fd]` is empty, call for `read_buffer` function to access file and start getting lines.
+> - if `storage[fd]` passed into `read_buffer` comes back with a NULL,  return `NULL` as this probably indicates `EOF` or Error.
+5. At this point, `storage[fd]` contains the entire file that was read. To get the function to work, we have to extract 1 line by 1 line. This is done by calling new_line function.
+> - Function will take storage[fd] as argument
+> - It will then return a string up to the first `\n`
+6. After the new line is stored by `line` pointer. We have to remove the line that was returned from the storage so that subsequent calls will start from the new line due to the usage of static variables. This is done by calling for `clean_buffer` function.
+## Terminology
+### Static Variables
+#### Variables are stored in the data portion of the memory. If the value is initialized, it will remain even if the programme stops. However, each time a programme is run, if the value is altered it will be reflected in the variables. These variables are stored within the function and can be used to store data values when the previous function call do something to the data eg get_next_line.
+## Life after get_next_line
+> - I managed to finish this by reading the whole file. I am looking to see if there is anyway to read and store buffer line by line such that if the buffer size is too small. It won't time out. I want to try to make the code more efficient.'
+> - I used strjoin to complete this project. Next up I will be looking to use linked list to complete it as practice for linked list.
