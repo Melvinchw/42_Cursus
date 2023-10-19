@@ -1,10 +1,10 @@
 # Get_next_line
 ## Prototype:
 ### Requirement
-- asdasd
-- asdasas
-- asdasdsa
-### Pseudocode
+- Using a loop in te main function get_next_line should print one line at a time
+- If there is nothing else to read or there is an error, it should return NULL
+- Returned line should consist of the `\n` character in it unless `EOF` has been reached.
+### Pseudocode(TBC)
 #### strjoin & substr method
 #### linked list method
 
@@ -151,6 +151,7 @@
 ## Terminology
 ### Static Variables
 #### Variables are stored in the data portion of the memory. If the value is initialized, it will remain even if the programme stops. However, each time a programme is run, if the value is altered it will be reflected in the variables. These variables are stored within the function and can be used to store data values when the previous function call do something to the data eg get_next_line.
+### Read/Open/Close TBC
 ## Life after get_next_line
 > - I managed to finish this by reading the whole file. I am looking to see if there is anyway to read and store buffer line by line such that if the buffer size is too small. It won't time out. I want to try to make the code more efficient.'
 > - I used strjoin to complete this project. Next up I will be looking to use linked list to complete it as practice for linked list.
