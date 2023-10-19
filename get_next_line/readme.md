@@ -113,7 +113,9 @@
 	    	storage[fd] = clean_buffer(storage[fd]);
 	    	return (line);
 	}
-
+1. To start with this function, we need a 'static variable'. Static variable is used to store newly appended string after returning the line.
+> 	**How static variables work?**
+>>	- Variables are stored in the data portion of the memory. If the value is initialized, it will remain even if the programme stops. However, each time a programme is run, if the value is altered it will be reflected in the variables. These variables are stored within the function and can be used to store data values when the previous function call do something to the data eg get_next_line.
 //need a static variable to store the newly appended string after returning the line
 //need a char ptr to point to the string that will be returned
 //This storage[fd] is pointing to the string that will be stored
