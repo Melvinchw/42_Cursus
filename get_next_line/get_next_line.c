@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 /*
 int main(void){
  int fd; int i;
- fd = open("text.txt", O_RDONLY);
+ fd = open("test.txt", O_RDONLY);
  i = 0;
  while (i < 40) {
   printf("%s", get_next_line(fd));  i++;
