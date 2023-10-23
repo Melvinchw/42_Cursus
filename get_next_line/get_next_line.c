@@ -11,83 +11,83 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-static char	*remove_buffer(char *storage)
+static char	*rm_usedline(char *mainbuff)
 {
-	char			*new_buffer;
+	char			*n_mainbuff;
 	char			*newline_add;
 	unsigned int	line_len;
 
-	newline_add = ft_strchr(storage, '\n');
+	newline_add = ft_strchr(mainbuff, '\n');
 	if (!newline_add)
 	{
-		new_buffer = NULL;
-		return (ft_free(&storage));
+		n_mainbuff = NULL;
+		return (ft_free(&mainbuff));
 	}
 	else
-		line_len = (newline_add - storage) + 1;
-	if (!storage[line_len])
-		return (ft_free(&storage));
-	new_buffer = ft_substr(storage, line_len, ft_strlen(storage) - line_len);
-	ft_free(&storage);
-	if (!new_buffer)
+		line_len = (newline_add - mainbuff) + 1;
+	if (!mainbuff[line_len])
+		return (ft_free(&mainbuff));
+	n_mainbuff = ft_substr(mainbuff, line_len, ft_strlen(mainbuff) - line_len);
+	ft_free(&mainbuff);
+	if (!n_mainbuff)
 		return (NULL);
-	return (new_buffer);
+	return (n_mainbuff);
 }
 
-static char	*new_line(char *storage)
+static char	*extract_line(char *mainbuff)
 {
 	char	*ptr;
 	char	*line;
 	int		len;
 
-	ptr = ft_strchr(storage, '\n');
-	len = (ptr - storage) + 1;
-	line = ft_substr(storage, 0, len);
+	ptr = ft_strchr(mainbuff, '\n');
+	len = (ptr - mainbuff) + 1;
+	line = ft_substr(mainbuff, 0, len);
 	if (!line)
 		return (NULL);
 	return (line);
 }
 
-static char	*read_buffer(int fd, char *storage)
+static char	*read_tempbuff(int fd, char *mainbuff)
 {
-	char	*buffer;
-	int		index_readed;
+	char	*tempbuff;
+	int		read_count;
 
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (ft_free(&storage));
-	buffer[0] = '\0';
-	index_readed = 1;
-	while (index_readed > 0 && !ft_strchr(buffer, '\n'))
+	tempbuff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!tempbuff)
+		return (ft_free(&mainbuff));
+	tempbuff[0] = '\0';
+	read_count = 1;
+	while (read_count > 0 && !ft_strchr(tempbuff, '\n'))
 	{
-		index_readed = read(fd, buffer, BUFFER_SIZE);
-		if (index_readed > 0)
+		read_count = read(fd, tempbuff, BUFFER_SIZE);
+		if (read_count > 0)
 		{
-			buffer[index_readed] = '\0';
-			storage = ft_strjoin(storage, buffer);
+			tempbuff[read_count] = '\0';
+			mainbuff = ft_strjoin(mainbuff, tempbuff);
 		}
 	}
-	free(buffer);
-	if (index_readed == -1)
-		return (ft_free(&storage));
-	return (storage);
+	free(tempbuff);
+	if (read_count == -1)
+		return (ft_free(&mainbuff));
+	return (mainbuff);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*storage = NULL;
+	static char	*mainbuff = NULL;
 	char		*line;
 
 	if (fd < 0)
 		return (NULL);
-	if ((storage && !ft_strchr(storage, '\n')) || !storage)
-		storage = read_buffer(fd, storage);
-	if (!storage)
+	if ((mainbuff && !ft_strchr(mainbuff, '\n')) || !mainbuff)
+		mainbuff = read_tempbuff(fd, mainbuff);
+	if (!mainbuff)
 		return (NULL);
-	line = new_line(storage);
+	line = extract_line(mainbuff);
 	if (!line)
-		return (ft_free(&storage));
-	storage = remove_buffer(storage);
+		return (ft_free(&mainbuff));
+	mainbuff = rm_usedline(mainbuff);
 	return (line);
 }
 /*

@@ -1,92 +1,102 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 21:31:00 by mchua             #+#    #+#             */
-/*   Updated: 2023/10/09 21:31:03 by mchua            ###   ########.fr       */
+/*   Created: 2023/10/03 20:32:32 by mchua             #+#    #+#             */
+/*   Updated: 2023/10/19 22:08:55 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line_bonus.h"
 
-static char	*clean_buffer(char *storage)
+static char	*rm_usedline(char *mainbuff)
 {
-	char			*new_storage;
-	char			*ptr;
-	unsigned int	len;
+	char			*n_mainbuff;
+	char			*newline_add;
+	unsigned int	line_len;
 
-	ptr = ft_strchr(storage, '\n');
-	if (!ptr)
+	newline_add = ft_strchr(mainbuff, '\n');
+	if (!newline_add)
 	{
-		new_storage = NULL;
-		return (ft_free(&storage));
+		n_mainbuff = NULL;
+		return (ft_free(&mainbuff));
 	}
 	else
-		len = (ptr - storage) + 1;
-	if (!storage[len])
-		return (ft_free(&storage));
-	new_storage = ft_substr(storage, len, ft_strlen(storage) - len);
-	ft_free(&storage);
-	if (!new_storage)
+		line_len = (newline_add - mainbuff) + 1;
+	if (!mainbuff[line_len])
+		return (ft_free(&mainbuff));
+	n_mainbuff = ft_substr(mainbuff, line_len, ft_strlen(mainbuff) - line_len);
+	ft_free(&mainbuff);
+	if (!n_mainbuff)
 		return (NULL);
-	return (new_storage);
+	return (n_mainbuff);
 }
 
-static char	*new_line(char *storage)
+static char	*extract_line(char *mainbuff)
 {
 	char	*ptr;
 	char	*line;
 	int		len;
 
-	ptr = ft_strchr(storage, '\n');
-	len = (ptr - storage) + 1;
-	line = ft_substr(storage, 0, len);
+	ptr = ft_strchr(mainbuff, '\n');
+	len = (ptr - mainbuff) + 1;
+	line = ft_substr(mainbuff, 0, len);
 	if (!line)
 		return (NULL);
 	return (line);
 }
 
-static char	*read_buffer(int fd, char *storage)
+static char	*read_tempbuff(int fd, char *mainbuff)
 {
-	char	*buffer;
-	int		index_readed;
+	char	*tempbuff;
+	int		read_count;
 
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (ft_free(&storage));
-	buffer[0] = '\0';
-	index_readed = 1;
-	while (index_readed > 0 && !ft_strchr(buffer, '\n'))
+	tempbuff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!tempbuff)
+		return (ft_free(&mainbuff));
+	tempbuff[0] = '\0';
+	read_count = 1;
+	while (read_count > 0 && !ft_strchr(tempbuff, '\n'))
 	{
-		index_readed = read(fd, buffer, BUFFER_SIZE);
-		if (index_readed > 0)
+		read_count = read(fd, tempbuff, BUFFER_SIZE);
+		if (read_count > 0)
 		{
-			buffer[index_readed] = '\0';
-			storage = ft_strjoin(storage, buffer);
+			tempbuff[read_count] = '\0';
+			mainbuff = ft_strjoin(mainbuff, tempbuff);
 		}
 	}
-	free(buffer);
-	if (index_readed == -1)
-		return (ft_free(&storage));
-	return (storage);
+	free(tempbuff);
+	if (read_count == -1)
+		return (ft_free(&mainbuff));
+	return (mainbuff);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*storage[MAX_FD];
+	static char	*mainbuff[MAX_FD];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
 		return (NULL);
-	if ((storage[fd] && !ft_strchr(storage[fd], '\n')) || !storage[fd])
-		storage[fd] = read_buffer(fd, storage[fd]);
-	if (!storage[fd])
+	if ((mainbuff[fd] && !ft_strchr(mainbuff[fd], '\n')) || !mainbuff[fd])
+		mainbuff[fd] = read_tempbuff(fd, mainbuff[fd]);
+	if (!mainbuff[fd])
 		return (NULL);
-	line = new_line(storage[fd]);
+	line = extract_line(mainbuff[fd]);
 	if (!line)
-		return (ft_free(&storage[fd]));
-	storage[fd] = clean_buffer(storage[fd]);
+		return (ft_free(&mainbuff[fd]));
+	mainbuff[fd] = rm_usedline(mainbuff[fd]);
 	return (line);
 }
+/*
+int main(void){
+ int fd; int i;
+ fd = open("text.txt", O_RDONLY);
+ i = 0;
+ while (i < 40) {
+  printf("%s", get_next_line(fd));  i++;
+ } return (0);
+}
+*/
