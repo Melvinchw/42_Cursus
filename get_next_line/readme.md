@@ -1,25 +1,35 @@
 # Get_next_line
-## Prototype:
+## Prototype: get_next_line(fd)
+### Content
+- [Requirement](Requirement)
+- Pseudocode
+- Function Brief
+- Terminology
+- Resources
 ### Requirement
-- Using a loop in te main function get_next_line should print one line at a time
+- Using a loop in the main function get_next_line should print one line at a time
 - If there is nothing else to read or there is an error, it should return NULL
 - Returned line should consist of the `\n` character in it unless `EOF` has been reached.
 ### Pseudocode(TBC)
-#### strjoin & substr method
-#### linked list method
+- Error handling for negative FD
+- Get and store line in buffer
+- Access buffer and print line up to the `\n` character
+- Remove line that was printed
+- In the event of any error, free allocated memory
+- Return line that was retrieved
 
 ## Function Brief
 - get_next_line
+> This is the main function that will call for the rest of the sub-functions and return the new line to be printed.
 - read_buffer
-> The purpose of this function is to `read` the file that was opened in the main function and store it in the buffer. Number of character to store is determined by the buffer size. It then combines together to return a full string up to the first `\\n` and return that string.
+> The purpose of this function is to `read` the file that was opened in the `int main` function pass through the `get_next_line` function and store it in the buffer. Number of character to store is determined by the buffer size. It then the individual buffer together using `substring` to return a full string up to the first `\n` and return that string.
 - new_line
-> The purpose of this function is to tap into the storage and extract a string up to the first `\n`.
+> The purpose of this function is to access the storage where the joined line was returned from `read_buffer` function and extract a string up to the first `\n` character.
 - clear_buffer
-> The purpose of this function is to remove the string that has been printed up to the first `\n`.
+> The purpose of this function is to remove the string that has been printed up to the first `\n` character.
 - ft_free
 > The purpose of this function is to remove the content pointed to by the pointer and initialize it to NULL.
 ## Function breakdown
-
 ### get_next_line
 1. To start with this function, we need a `static variable`. Static variable is used to store newly appended string after returning the line.
 2. A char ptr `line` is declared and initialized to point to the string that will be returned at the end of the function.
@@ -55,7 +65,7 @@
 1. `buffer` array is declared so that we can dynamically allocate memory to it.
 2. `index-readed` is declared to help keep track of how many characters were read as `read` returns the number of characters read. It is initialized as 1 to indicate
    at there is data in the file.
-4. `buffer` is malloced to buffer size + 1 to account for all the characters and a NULL terminator. Erro handling is done for memory leaks here. If allocation is unsuccessful, we will call for `ft_free`
+4. `buffer` is malloced to buffer size + 1 to account for all the characters and a NULL terminator. Error handling is done for memory leaks here. If allocation is unsuccessful, we will call for `ft_free`
 5. A `while` loop is used with the following conditions:
 > - `index_readed` is greater than 0 to indicate there is data in the file
 > - `strchr` is not `\n` so that the loop continues until it hits the new line.
@@ -151,7 +161,24 @@
 ## Terminology
 ### Static Variables
 #### Variables are stored in the data portion of the memory. If the value is initialized, it will remain even if the programme stops. However, each time a programme is run, if the value is altered it will be reflected in the variables. These variables are stored within the function and can be used to store data values when the previous function call do something to the data eg get_next_line.
-### Read/Open/Close TBC
+### Read/Open/Close
+### Read
+#### int read(int fd)
+#### `read()` attempts to read up to count bytes from the file descriptor (fd) into the buffer. It functions are as follow:
+- read operation will commence at the file offset, this means that it will continue from where the previous read operation stops.
+- when `eof` is reached, no bytes are read, and read() returns zero. If the count is zero, read() will try to detect for errors.
+- read will return 0 if no error is found. If error is found it will return -1.
+### Open
+#### int open(const chcar *pathname, int flags, mode_t mode)
+#### `open()` calls the file specified by the pathname and opens it. In the event that the file to be opened does not exist it may be created with `O_CREAT` flag.
+- open() returns a file descriptor integer which is then used in subsequent system calls to refer to the opened file.
+- the returned file descriptor from this command will be the **lowest numbered** file descriptor that is not currently open for the process.
+- Commonly used flags are: `O_RDONLY`, `O_WRONLY`, `O_RDWR`. For more information search for `man open`.
+### Close
+#### int close(int fd)
+#### `close()` is used to close a file descriptor
+- once the file is closed, it no longer refers to any file and the file descriptor may be reused.
+- upon success, `close()` returns zero and -1 upone error. errno is set to indicate the error.
 ## Life after get_next_line
 > - I managed to finish this by reading the whole file. I am looking to see if there is anyway to read and store buffer line by line such that if the buffer size is too small. It won't time out. I want to try to make the code more efficient.'
 > - I used strjoin to complete this project. Next up I will be looking to use linked list to complete it as practice for linked list.
