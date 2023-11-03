@@ -1,7 +1,7 @@
 # Get_next_line
 ## Prototype: get_next_line(fd)
 ### Content
-- [Requirement](https://github.com/Melvinchw/42_Cursus/edit/main/get_next_line/readme.md#requirement)
+- [Requirement](/Melvinchw/42_Cursus/edit/main/get_next_line/readme#requirement)
 - Pseudocode
 - Function Brief
 - Terminology
