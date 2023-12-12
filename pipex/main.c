@@ -6,18 +6,43 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 19:58:21 by mchua             #+#    #+#             */
-/*   Updated: 2023/12/11 22:05:27 by mchua            ###   ########.fr       */
+/*   Updated: 2023/12/12 20:20:23 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdio.h>
 #include <unistd.h>
 
+void	error()
+{
+	printf("Error executing,goodbye bitch\n");
+	break();
+}
+
 void	child_process(char **argv, char **envp, int *fd)
 {
+	int fdin;
+	
+	filefd = open(argv[1], O_RDONLY, 0777);//open as read only as the point of this file is to take the content and execute a command. Nothing is to be done to this file
+
+	if (filefd == -1)
+		error();
+	dup2(filefd, STDIN_FILENO);//duplicate this file and replace this with the STDIN, which is the read portion. This way when program rea, it will read from the file
+	dup2(fd[1], STDOUT_FILENO);//duplicate this write end of pipe, and replace with STDOUT so that output will be passed to the pipe
+	close (fd[0]);//close the end of pipe that is not in use
+	execute_cmd(argv[2],envp);//pass the 2nd argument which is the command into this function along with the list of environment variables
 }
 
 void	parent_parent(char **argv, char **envp, int *fd)
 {
+	int	fdout;
+
+	fdout = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);//read up on the flags. Open as writeoonly to input the output
+	if (fdout == -1)
+		error();
+	dup2(fd[0], STDIN_FILENO);//duplicate the read end of pipe and duplicate with STDIN so program will read value from child process that was output into the write end of pipe.
+	dup2(fdout, STDOUT_FILENO);//duplicate the file fd and replace with STDOUT so any output will be written into the fdout file.
+	close (fd[1]);//close the write end of pipe that is not in use
+	execute_cmd(argv[[3], envp);//pass in the 2nd command which is the 3rd argument along with the list of environment variables
 }
 
 void	execute_cmd(char *argv, char **envp)
@@ -91,24 +116,9 @@ int main(int argc, char **argv, char **envp)
 
 		//child process from fork
 		if (process_id == 0)
-		{
-			filein = open(argv[1], O_RDONLY, 0777);
-			if (filein == -1);
-				error();
-			dup2(pipe[1], STDOUT_FILENO);//place pipe write end to stdout fd,stdout will be placed onto the pipe
-			dup2(filein, STDIN_FILENO);//place pipe read end to stdin fd, stdin will read the file
-			close (fd[0]);
-			execute_cmd(argv[2], envp);
-		}
-		waitpid(process_id, NULL, 0);
-		//parent process from fork
-		fileout = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-		if (fileout == -1)
-			error();
-		dup2(fd[0], STDIN_FILENO);//stdin will read from pipe read end
-		dup2(fileout, STDOUT_FILENO);//stdout will output to the fileout instead of the terminal
-		close(fd[1];
-		execute_cmd[argv[3], envp);
+			child_process(argv, envp, fd);//pass in the arguments, environmental variables and pipe fds)
+		waitpid(process_id, NULL, 0);//process id of child, don't need the status of process, 0 means work as normal wait function. Read up on waitpid vs wait
+		parent_process(argv, envp, fd);
 	}
 	else
 	{
