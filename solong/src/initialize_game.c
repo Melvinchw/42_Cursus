@@ -1,15 +1,14 @@
-//initialize_game.c
-#include "./include/so_long.h"
+#include "so_long.h"
 
 void	init_game(char *buffer)
 {
 	t_window	*window;
 
-	empty_map_check(buffer);//free buffer
-	valid_map_check(buffer);//free buffer
+	empty_map_check(buffer);
+	valid_map_check(buffer);
 	window = (t_window *)malloc(sizeof(t_window));
 	if (!window)
-			handle_error(7, "Allocation error");
+		handle_error(7, "Allocation error");
 	initialize_structure(window);
 	window->map_array = ft_split(buffer, '\n');
 	check_game_attributes(window, buffer);
