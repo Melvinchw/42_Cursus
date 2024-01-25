@@ -1,4 +1,14 @@
-//game_attributes.c
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_attributes.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 16:59:28 by mchua             #+#    #+#             */
+/*   Updated: 2024/01/25 16:59:28 by mchua            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "so_long.h"
 
 void	rectangle_check(t_window *window, int height)
@@ -26,8 +36,8 @@ void	wall_check(t_window *window, int width, int height)
 	while (y < height - 1)
 	{
 		if (window->map_array[0][x] != '1' ||
-				window->map_array != [height - 1][x])
-			handle_error(3, "Invalid Walls");
+				window->map_array[height - 1][x] != '1')
+			handle_error(3, "Invalid Walls", window);
 		x++;
 	}
 	while (x < width - 1)
@@ -64,29 +74,6 @@ void	token_check(t_window *window)
 		handle_error(3, "Wrong Token Count!\n", window);
 }
 
-void	player_pos(t_window *window)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (window->map_array[y])
-	{
-		x = 0;
-		while (window->map_array[y][x])
-		{
-			if (window->map_array[y][x] == 'P')
-			{
-				window->player.x = x;
-				window->player.y = y;
-				break ;
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
 void	path_check(t_window *window, char **tempbuf, int x, int y)
 {
 	if ((tempbuf[y][x]) == '1')
@@ -97,9 +84,9 @@ void	path_check(t_window *window, char **tempbuf, int x, int y)
 		return ;
 	}
 	if (tempbuf[y][x] == 'C')
-		window->map.coin_check++;
-	if (window->map.exit_check == 2 &&
-		window->map.coins != window->map.coin_check)
+		window->map.coins_check++;
+	if (window->map.exit_check == 2
+		&& window->map.coins != window->map.coins_check)
 		return ;
 	tempbuf[y][x] = '1';
 	path_check(window, tempbuf, x + 1, y);
@@ -118,12 +105,12 @@ void	check_attributes(t_window *window, char *buffer)
 
 	initialize_map(window);
 	rectangle_check(window, window->height);
-	wall_check(window, window->width, window->height);
+	wall_check(window, window->length, window->height);
 	token_check(window);
 	player_pos(window);
 	tempbuf = ft_split(buffer, '\n');
 	path_check(window, tempbuf, window->player.x, window->player.y);
 	free_array(tempbuf);
 	if (window->map.exit == 0)
-		handle_error(3, "No exit found!\n");
+		handle_error(3, "No exit found!\n", window);
 }

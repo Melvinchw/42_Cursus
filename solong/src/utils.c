@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 17:00:30 by mchua             #+#    #+#             */
+/*   Updated: 2024/01/25 17:00:30 by mchua            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "so_long.h"
 
 void	free_image(t_window *window)
@@ -24,7 +35,7 @@ void	free_array(char **array)
 	}
 }
 
-void	handle_error(int err_no, char *err_msg)
+void	handle_error(int err_no, char *err_msg, t_window *window)
 {
 	if (err_no == 1)
 		ft_printf("Input error: %s\n", err_msg);

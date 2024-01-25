@@ -6,7 +6,7 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:42:54 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/28 21:41:11 by mchua            ###   ########.fr       */
+/*   Updated: 2024/01/25 20:57:41 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -15,6 +15,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 
 typedef struct s_list
 {

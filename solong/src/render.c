@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/25 17:00:21 by mchua             #+#    #+#             */
+/*   Updated: 2024/01/25 17:00:21 by mchua            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "so_long.h"
 
 t_img	load_image(void *mlx_ptr, char *filepath)
@@ -26,14 +37,14 @@ void	map_renderer(t_window *window)
 		while (window->map_array[y][x])
 		{
 			if (window->map_array[y][x] == '1')
-				img_put(window, window->map.wall_img, y, x);
+				img_put(window, &window->map.wall_img, y, x);
 			else if (window->map_array[y][x] == 'C')
-				img_put(window, window->map.coin_img, y, x);
+				img_put(window, &window->map.coin_img, y, x);
 			else if (window->map_array[y][x] == '0')
-				img_put(window, window->map.floor_img, y, x);
+				img_put(window, &window->map.floor_img, y, x);
 			else if (window->map_array[y][x] == 'E')
-				img_put(window, window->map.exit_img, y, x);
+				img_put(window, &window->map.exit_img, y, x);
 		}
 	}
-	img_put(window, window->map.player_img, window->player.y, window->player.x);
+	img_put(window, &window->map.player_img, window->player.y, window->player.x);
 }

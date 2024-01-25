@@ -41,7 +41,7 @@
 //struct for image variables
 typedef struct s_img
 {
-	void	img_ptr;
+	void	*img_ptr;
 	int		x;
 	int		y;
 }	t_img;
@@ -90,22 +90,12 @@ typedef struct s_window
 	t_player	player;
 }	t_window;
 
-void	free_image(t_window *window)
-{
-	mlx_destroy_image(window->mlx_ptr, window->map.wall_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.coin_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.floor_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.playerdown_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.playerup_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.playerleft_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.playerright_img.img_ptr);
-}
-
 //utils.c
 void	free_image(t_window *window);
 void	free_array(char **array);
-void	handle_error(int err_no, char *err_msg);
 void	handle_exit(int fd, t_window *window);
+void	handle_error(int err_no, char *err_msg,t_window *window);
+
 
 //render.c
 t_img	load_image(void *mlx_ptr, char *filepath);
@@ -128,7 +118,7 @@ void	init_game(char *buffer);
 
 //initialize_all.c
 void	initialize_structure(t_window *window);
-void	asset_to_characters(t_window window);
+void	asset_to_characters(t_window *window);
 void	initialize_map(t_window *window);
 
 //game_attributes.c
