@@ -1,3 +1,4 @@
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -30,7 +31,7 @@
 # define TURN_UP "./assets/turn_up.xpm"
 # define TURN_DOWN "./assets/turn_down.xpm"
 # define EXIT "./assets/exit.xpm"
-# define COINS "./assets/coins.xpm"
+# define COINS "./assets/coin.xpm"
 
 //Image and buffer size
 # define SPRITE 32

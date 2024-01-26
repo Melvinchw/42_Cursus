@@ -55,7 +55,7 @@ void	move_left(t_window *window, int y, int x)
 		window->map_array[y][x] = '0';
 		if (window->map_array[y][x - 1] == 'C')
 			window->player.coins_collected++;
-		window->player.x++;
+		window->player.x--;
 		window->map.player_img = window->map.playerleft_img;
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
@@ -73,7 +73,7 @@ void	move_right(t_window *window, int y, int x)
 		window->map_array[y][x] = '0';
 		if (window->map_array[y][x + 1] == 'C')
 			window->player.coins_collected++;
-		window->player.y++;
+		window->player.x++;
 		window->map.player_img = window->map.playerright_img;
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
@@ -86,7 +86,10 @@ void	move_right(t_window *window, int y, int x)
 int	handle_event(int keysym, t_window *window)
 {
 	if (keysym == ESC)
-		handle_exit(2, window);
+	{
+		ft_printf("Escape key pressed!\n");
+		handle_exit(3, window);
+	}
 	if (keysym == KEY_W && window->map_array[window->player.y - 1][window->player.x] != '1')
 		move_up(window, window->player.y, window->player.x);
 	else if (keysym == KEY_S && window->map_array[window->player.y + 1][window->player.x] != '1')
@@ -96,7 +99,7 @@ int	handle_event(int keysym, t_window *window)
 	else if (keysym == KEY_D && window->map_array[window->player.y][window->player.x + 1] != '1')
 		move_right(window, window->player.y, window->player.x);
 	else
-		ft_printf("Invalid move! Try again.\n");
+		ft_printf("Invalid move! Try again.\nDirectional Keys are:\nUp: W\nDown: S\nLeft: A\nRight: D\n");
 	map_renderer(window);
 	return (0);
 }

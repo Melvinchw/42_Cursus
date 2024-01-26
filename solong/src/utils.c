@@ -31,8 +31,8 @@ void	free_array(char **array)
 	{
 		free (array[y]);
 		y++;
-		free (array);
 	}
+	free (array);
 }
 
 void	handle_error(int err_no, char *err_msg, t_window *window)
@@ -40,7 +40,7 @@ void	handle_error(int err_no, char *err_msg, t_window *window)
 	if (err_no == 1)
 		ft_printf("Input error: %s\n", err_msg);
 	else if (err_no == 2)
-		ft_printf("File format error: %s\n", err_msg);
+		ft_printf("File error: %s\n", err_msg);
 	else if (err_no == 3)
 		ft_printf("Invalid map error: %s\n", err_msg);
 	else if (err_no == 4)

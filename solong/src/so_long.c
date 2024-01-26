@@ -17,19 +17,19 @@ int	main(int argc, char **argv)
 	char	*buffer;
 
 	if (argc != 2)
-		ft_printf("Incorrect number of input");
-	if (ft_strncmp(&argv[1][ft_strlen(argv[1] - 4)], ".ber", 4))
-		ft_printf("Wrong file format\n");
+		handle_error(1, "Incorrect number of inputs!", NULL);
+	if (ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], ".ber", 4) != 0)
+		handle_error(1, "Wrong file format!\n", NULL);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		ft_printf("Error opening file\n");
+		handle_error(2, "Error opening file!", NULL);
 	buffer = ft_calloc(BUFFER + 1, sizeof(char));
 	if (!buffer)
 		return (-1);
 	if (read(fd, buffer, BUFFER) <= 0)
 	{
 		free(buffer);
-		ft_printf("Empty map file!\n");
+		handle_error(2, "Empty map file!", NULL);
 		return (-1);
 	}
 	init_game(buffer);
