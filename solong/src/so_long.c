@@ -32,6 +32,7 @@ int	main(int argc, char **argv)
 		handle_error(2, "Empty map file!", NULL);
 		return (-1);
 	}
+	close(fd);
 	init_game(buffer);
 	return (0);
 }

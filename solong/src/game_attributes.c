@@ -89,15 +89,15 @@ void	path_check(t_window *window, char **tempbuf, int x, int y)
 		&& window->map.coins != window->map.coins_check)
 		return ;
 	tempbuf[y][x] = '1';
+	path_check(window, tempbuf, x, y - 1);
+	path_check(window, tempbuf, x, y + 1);
 	path_check(window, tempbuf, x + 1, y);
 	path_check(window, tempbuf, x - 1, y);
-	path_check(window, tempbuf, x, y + 1);
-	path_check(window, tempbuf, x, y - 1);
-	if (window->map.exit_check == 0)
+	/*if (window->map.exit_check == 0)
 	{
 		free (tempbuf);
 		handle_error(3, "No Path Found!", window);
-	}
+	}*/
 }
 //check_game_attributes
 void	check_attributes(t_window *window, char *buffer)
