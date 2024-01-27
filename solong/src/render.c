@@ -48,5 +48,6 @@ void	map_renderer(t_window *window)
 		}
 		y++;
 	}
-	img_put(window, window->map.player_img.img_ptr, window->player.y, window->player.x);
+	img_put(window, window->map.player_img.img_ptr, 
+		window->player.y, window->player.x);
 }

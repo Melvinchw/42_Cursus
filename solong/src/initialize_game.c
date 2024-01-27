@@ -30,6 +30,5 @@ void	init_game(char *buffer)
 	asset_to_characters(window);
 	map_renderer(window);
 	mlx_key_hook(window->win_ptr, handle_event, window);
-	//mlx_hook(window->win_ptr, DESTROYWINDOW, 0, handle_exit(3, window), window);
 	mlx_loop(window->mlx_ptr);
 }
