@@ -1,131 +1,123 @@
-#include "./include/so_long_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_attributes_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/29 17:09:17 by mchua             #+#    #+#             */
+/*   Updated: 2024/01/29 17:09:17 by mchua            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "so_long_bonus.h"
 
-void    rectangle_check(char **map_array, int height)
+void	rectangle_check(t_window *window, int height)
 {
-    int reference_width;
-    int y;
-    
-    y = 0;
-    reference_width = ft_strlen(map_array[y]);
-    while (y < height - 1)
-    {
-        if (ft_strlen(map_array[y]) != reference width)
-            handle_error(5, "Map not rectangular", window);
-        y++;
-    }
+	int	reference_width;
+	int	y;
+
+	y = 0;
+	reference_width = ft_strlen(window->map_array[y]);
+	while (y < height)
+	{
+		if (ft_strlen(window->map_array[y]) != reference_width 
+			|| reference_width < height)
+			handle_error(3, "Map not rectangular!", window);
+		y++;
+	}
 }
 
-void    wall_check(char **map_array, int width, int height)
+void	wall_check(t_window *window, int length, int height)
 {
-    int x;
-    int y;
-    
-    x = 0;
-    y = 0;
-    while (y < height - 1)
-    {
-        if (map_array[0][x] != '1' || map_array != [height - 1][x])
-            handle_error(5, "Wall not fully surrounded!", window);
-        x++
-    }
-    while (x < width - 1)
-    {
-        if (map_array[y][0] != '1' || map_array[y][width - 1] != '1')
-            handle_error(5, "Wall not fully surrounded", window);
-        y++;
-    }
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (x < length)
+	{
+		if (window->map_array[0][x] != '1' 
+			|| window->map_array[height - 1][x] != '1')
+			handle_error(3, "Map not fully surrounded by walls!", window);
+		x++;
+	}
+	while (y < height)
+	{
+		if (window->map_array[y][0] != '1' 
+			|| window->map_array[y][length - 1] != '1')
+			handle_error(3, "Map not fully surrounded by walls!", window);
+		y++;
+	}
 }
 
-void    token_check(t_window *window)
+void	token_check(t_window *window)
 {
-    int x;
-    int y;
-    
-    y = 0;
-    while (window->map_array[y])
-    {
-        x = 0;
-        while (window->map_array[y][x])
-        {
-            if (window->map_array[y][x] == 'P')
-                window->map.player++;
-            if (window->map_array[y][x] == 'E')
-                window->map.exit++;
-            if (window->map_array[y][x] == 'C')
-                window->map.coins++;
-						if (window->map_array[y][x] == 'B')
-								window->enemy.enemy_no++;
-            x++;
-        }
-        y++;
-    }
-    if (window->map.player != 1 || window->map.exit != 1 || !window->map.coins)
-        handle_error(5, "Wrong player count!");
-    else if (window->map.exit != 1)
-        handle_error(5, "Wrong exit count!");
-    else if (window->map.exit != 1)
-        handle_error(5, "Wrong coin count!");
-}
-//refactor to streamline code
-void    player_pos(t_window *window)
-{
-    int x;
-    int y;
-    
-    y = 0;
-    while (window->map_array[y])
-    {
-        x = 0;
-        while (window->map_array[y][x])
-        {
-            if (window->map_array[y][x] == 'P')
-            {
-                window->player.x = x;
-                window->player.y = y;
-                break;
-            }
-            x++;
-        }
-        y++;
-    }
+	int	x;
+	int	y;
+
+	y = 0;
+	while (window->map_array[y])
+	{
+		x = 0;
+		while (window->map_array[y][x])
+		{
+			if (window->map_array[y][x] == 'P')
+				window->map.player++;
+			if (window->map_array[y][x] == 'E')
+				window->map.exit++;
+			if (window->map_array[y][x] == 'C')
+				window->map.coins++;
+			if (window->map_array[y][x] == 'B')
+				window->enemy_no++;
+			x++;
+		}
+		y++;
+	}
+	if (window->map.player != 1 
+		|| window->map.exit != 1 || window->map.coins < 1)
+		handle_error(3, "Wrong token count!", window);
 }
 
-void    path_check(t_window *window, char **tempbuf, int x, int y)
+void	player_pos(t_window *window)
 {
-    if ((tempbuf[y][x]) == '1')
-        return;
-    if (tempbuf[y][x] == 'E')
-    {
-        window->map.exit_check = 2;
-        return;
-    }
-    if (tempbuf[y][x] == 'C')
-        window->map.coin_check++;
-    if (window->map.exit_check == 2 && window->map.coins != window->map.coin_check )
-        return;
-    tempbuf[y][x] = '1';
-    
-    path_check(window, tempbuf, x + 1, y);
-    path_check(window, tempbuf, x, y + 1);
-    path_check(window, tempbuf, x - 1, y);
-    path_check(window, tempbuf, x, y - 1);
-    
-    if (window->map.exit_check == 0)
-        handle_error(5, "No path found!");
+	int	x;
+	int	y;
+
+	y = 0;
+	while (window->map_array[y])
+	{
+		x = 0;
+		while (window->map_array[y][x])
+		{
+			if (window->map_array[y][x] == 'P')
+			{
+				window->player.x = x;
+				window->player.y = y;
+				break ;
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
-void    check_attributes(t_window *window, char *buffer)
+void	path_check(t_window *window, char **tempbuf, int x, int y)
 {
-    char    **tempbuf;
-
-    initialize_map(window);
-    rectangle_check(window, window->height);
-    wall_check(window->map_array, window->width, window->height);
-    token_check(window);
-    player_pos(window);
-    tempbuf = ft_split(buffer, '\n');
-    path_check(window, tempbuf, window->player.x, window->player.y);
-    free_array(tempbuf);
-    if (window->map.exit == 0);
-        handle_error(5, "No exit within map!");
+	if ((tempbuf[y][x]) == '1')
+		return ;
+	if (tempbuf[y][x] == 'E')
+	{
+		window->map.exit_check = 2;
+		return ;
+	}
+	if (tempbuf[y][x] == 'C')
+		window->map.coins_check++;
+	if (window->map.exit_check == 2 
+		&& window->map.coins != window->map.coins_check)
+		return ;
+	tempbuf[y][x] = '1';
+	path_check(window, tempbuf, x, y - 1);
+	path_check(window, tempbuf, x, y + 1);
+	path_check(window, tempbuf, x + 1, y);
+	path_check(window, tempbuf, x - 1, y);
 }

@@ -1,66 +1,83 @@
-//utils_bonus.c
-#include "./include/so_long_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/29 17:07:51 by mchua             #+#    #+#             */
+/*   Updated: 2024/01/29 17:07:51 by mchua            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "so_long_bonus.h"
 
-void    free_image(t_window *window)
+void	free_image(t_window *window)
 {
-    mlx_destroy_iamge(window->mlx_ptr, window->map.coin_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->map.floor_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->map.wall_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->map.playerup_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->map.playerdown_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->map.playerleft_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->map.playerright_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->map.player_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->enemy.up_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->enemy.down_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->enemy.left_img.img_ptr);
-    mlx_destroy_iamge(window->mlx_ptr, window->enemy.right_img.img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.coin_img[0].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.coin_img[1].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.coin_img[2].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.coin_img[3].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.coin_img[4].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.coin_img[5].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.floor_img.img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.wall_img.img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_1[0].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_1[1].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_1[2].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_1[3].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_2[0].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_2[1].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_2[2].img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_2[3].img_ptr);
+//	mlx_destroy_image(window->mlx_ptr, window->map.en_down_img.img_ptr);
+//	mlx_destroy_image(window->mlx_ptr, window->map.en_left_img.img_ptr);
+//	mlx_destroy_image(window->mlx_ptr, window->map.en_right_img.img_ptr);
 }
 
-void    free_array(char **array)
+void	free_array(char **array)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (array[i])
-    {
-        free (array[i]);
-        i++;
-    }
-    free(array);
+	i = 0;
+	while (array[i])
+	{
+		free (array[i]);
+		i++;
+	}
+	free(array);
 }
 
-void    handle_error(int err_no, char *err_msg)
+void	handle_error(int err_no, char *err_msg, t_window *window)
 {
-    if (err_no == 1)
-        ft_printf("Input error: %s\n", err_msg);
-    else if (err_no == 2)
-        ft_printf("File format error: %s\n", err_msg);
-    else if (err_no == 3)
-        ft_printf("Invalid map error: %s\n", err_msg);
-    else if (err_no == 4)
-        ft_printf("Memory allocation error\n", err_msg);
-    exit(0);
-    if (err_no == 5)
-        ft_printf("Game attribute error: %s\n", err_msg);
-    handle_exit(3, window);
-    exit(0);
+	if (err_no == 1)
+		ft_printf("Input error: %s\n", err_msg);
+	else if (err_no == 2)
+		ft_printf("File error: %s\n", err_msg);
+	else if (err_no == 3)
+		ft_printf("Invalid map error: %s\n", err_msg);
+	else if (err_no == 4)
+		ft_printf("Memory allocation error\n", err_msg);
+	exit(0);
+	if (err_no == 5)
+		ft_printf("Game attribute error: %s\n", err_msg);
+	handle_exit(3, window);
+	exit(0);
 }
 
-void    handle_exit(int fd, t_window *window)
+void	handle_exit(int fd, t_window *window)
 {
-    if (window->map_array)
-        free_array(window->map_array);
-    if (fd == 1)
-        ft_printf("You win!\n");
-    if (fd == 2)
-        ft_printf("You lose!!\n");
-    if (fd != 0)
-    {
-       ft_printf("Closing game. Goodbye!\n");
-       free_image(window);
-       mlx_destroy_window(window->mlx_ptr, window->win_ptr);
-       mlx_destroy_display(window->mlx_ptr);
-       exit(0);
-    }
+	if (window->map_array)
+		free_array(window->map_array);
+	if (fd == 1)
+		ft_printf("You win!\n");
+	if (fd == 2)
+		ft_printf("You lose!!\n");
+	if (fd != 0)
+	{
+		ft_printf("Closing game. Goodbye!\n");
+		free_image(window);
+		mlx_destroy_window(window->mlx_ptr, window->win_ptr);
+		mlx_destroy_display(window->mlx_ptr);
+		exit(0);
+	}
 }
