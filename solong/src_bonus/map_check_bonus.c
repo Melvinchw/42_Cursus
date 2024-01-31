@@ -35,7 +35,8 @@ void	valid_map_check(char *buffer)
 	while (buffer[i])
 	{
 		if (buffer[i] == 'P' || buffer[i] == 'E' || buffer[i] == '1'
-			|| buffer[i] == 'C' || buffer[i] == '0' || buffer[i] == 'B' || buffer[i] == '\n')
+			|| buffer[i] == 'C' || buffer[i] == '0' || buffer[i] == 'B' 
+			|| buffer[i] == '\n')
 			i++;
 		else
 		{

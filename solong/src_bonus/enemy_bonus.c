@@ -21,27 +21,28 @@ void	collision_check(t_window *window)
 		if (window->enemy[i].y == window->player.y 
 			&& window->enemy[i].x == window->player.x)
 			handle_exit(2, window);
+		i++;
 	}
 }
 
-void	enemy_new_pos(t_enemy enemy)
+void	enemy_new_pos(t_enemy *enemy)
 {
-	if (enemy.direction == MOVE_UP)
-		enemy.y--;
-	else if (enemy.direction == MOVE_DOWN)
-		enemy.y++;
-	else if (enemy.direction == MOVE_LEFT)
-		enemy.x--;
-	else if (enemy.direction == MOVE_RIGHT)
-		enemy.x++;
+	if (enemy->dir == MOVE_UP)
+		enemy->y--;
+	else if (enemy->dir == MOVE_DOWN)
+		enemy->y++;
+	else if (enemy->dir == MOVE_LEFT)
+		enemy->x--;
+	else if (enemy->dir == MOVE_RIGHT)
+		enemy->x++;
 }
 
-void	enemy_change_direction(t_enemy enemy)
+void	enemy_change_direction(t_enemy *enemy)
 {
-	if (enemy.direction < 3)
-		enemy.direction++;
+	if (enemy->dir < 3)
+		enemy->dir++;
 	else
-		enemy.direction = 0;
+		enemy->dir = 0;
 }
 
 void	move_enemy(t_window *window)
@@ -49,39 +50,45 @@ void	move_enemy(t_window *window)
 	static int	count;
 	int			i;
 
-	i = 0;
 	count++;
 	if (count < EN_MOVEMENT)
 		return ;
+	i = 0;
 	while (i < window->enemy_no)
 	{
-		if (enemy_move_valid(window))
+		if (enemy_move_valid(window, window->enemy))
 		{
+			window->map_array[window->enemy[i].y][window->enemy[i].x] = '0';
 			img_put(window, window->map.floor_img.img_ptr,
-				 window->enemy[i].y, window->enemy[i].x);
-			enemy_new_pos(window->enemy[i]);
+				window->enemy[i].y, window->enemy[i].x);
+			enemy_new_pos(&window->enemy[i]);
 		}
 		else
 		{
+			window->map_array[window->enemy[i].y][window->enemy[i].x] = '0';
 			img_put(window, window->map.floor_img.img_ptr,
-				 window->enemy[i].y, window->enemy[i].x);
-			enemy_change_direction(window->enemy[i]);
+				window->enemy[i].y, window->enemy[i].x);
+			enemy_change_direction(&window->enemy[i]);
 		}
-		display_enemy(window);
 		i++;
+		display_enemy(window);
 	}
 	count = 0;
 }
 
-int	enemy_move_valid(t_window *window)
+int	enemy_move_valid(t_window *window, t_enemy *enemy)
 {
-	if (window->enemy->direction == MOVE_UP && !ft_strrchr("1CE", window->map_array[window->enemy->y - 1][window->enemy->x]))
+	if (window->enemy->dir == MOVE_UP 
+		&& !ft_strrchr("1CE", window->map_array[enemy->y - 1][enemy->x]))
 		return (1);
-	if (window->enemy->direction == MOVE_DOWN && !ft_strrchr("1CE", window->map_array[window->enemy->y + 1][window->enemy->x]))
+	if (window->enemy->dir == MOVE_DOWN 
+		&& !ft_strrchr("1CE", window->map_array[enemy->y + 1][enemy->x]))
 		return (1);
-	if (window->enemy->direction == MOVE_RIGHT && !ft_strrchr("1CE", window->map_array[window->enemy->y][window->enemy->x + 1]))
+	if (window->enemy->dir == MOVE_RIGHT 
+		&& !ft_strrchr("1CE", window->map_array[enemy->y][enemy->x + 1]))
 		return (1);
-	if (window->enemy->direction == MOVE_LEFT && !ft_strrchr("1CE", window->map_array[window->enemy->y][window->enemy->x - 1]))
+	if (window->enemy->dir == MOVE_LEFT 
+		&& !ft_strrchr("1CE", window->map_array[enemy->y][enemy->x - 1]))
 		return (1);
 	return (0);
 }

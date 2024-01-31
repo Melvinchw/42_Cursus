@@ -29,9 +29,6 @@ void	free_image(t_window *window)
 	mlx_destroy_image(window->mlx_ptr, window->map.player_2[1].img_ptr);
 	mlx_destroy_image(window->mlx_ptr, window->map.player_2[2].img_ptr);
 	mlx_destroy_image(window->mlx_ptr, window->map.player_2[3].img_ptr);
-//	mlx_destroy_image(window->mlx_ptr, window->map.en_down_img.img_ptr);
-//	mlx_destroy_image(window->mlx_ptr, window->map.en_left_img.img_ptr);
-//	mlx_destroy_image(window->mlx_ptr, window->map.en_right_img.img_ptr);
 }
 
 void	free_array(char **array)

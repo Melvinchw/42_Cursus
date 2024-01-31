@@ -11,6 +11,15 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
+int	update_enemy(t_window *window)
+{
+	move_enemy(window);
+	collision_check(window);
+	display_coins(window, true);
+	display_moves(window);
+	return (0);
+}
+
 void	init_game(char *buffer)
 {
 	t_window	*window;
@@ -25,8 +34,8 @@ void	init_game(char *buffer)
 	check_attributes(window, buffer);
 	free(buffer);
 	window->mlx_ptr = mlx_init();
-	window->win_ptr = mlx_new_window(window->mlx_ptr,
-			window->length * SPRITE, window->height * SPRITE, "SOOO_LOONG_BONUS! :)");
+	window->win_ptr = mlx_new_window(window->mlx_ptr, window->length * SPRITE,
+			window->height * SPRITE, "SOOO_LOONG_BONUS! :)");
 	asset_to_characters(window);
 	if (window->enemy_no > 0)
 	{
@@ -35,6 +44,6 @@ void	init_game(char *buffer)
 	}
 	display_map(window);
 	mlx_key_hook(window->win_ptr, handle_event, window);
-	mlx_loop_hook(window->win_ptr, update_enemy, window);
+	mlx_loop_hook(window->mlx_ptr, update_enemy, window);
 	mlx_loop(window->mlx_ptr);
 }

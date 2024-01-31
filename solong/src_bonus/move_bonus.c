@@ -20,7 +20,7 @@ void	move_up(t_window *window, int y, int x)
 		if (window->map_array[y - 1][x] == 'C')
 			window->player.coins_collected++;
 		window->player.y--;
-		window->player.direction = MOVE_UP;
+		window->player.dir = MOVE_UP;
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
 	}
@@ -38,7 +38,7 @@ void	move_down(t_window *window, int y, int x)
 		if (window->map_array[y + 1][x] == 'C')
 			window->player.coins_collected++;
 		window->player.y++;
-		window->player.direction = MOVE_DOWN;
+		window->player.dir = MOVE_DOWN;
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
 	}
@@ -56,7 +56,7 @@ void	move_left(t_window *window, int y, int x)
 		if (window->map_array[y][x - 1] == 'C')
 			window->player.coins_collected++;
 		window->player.x--;
-		window->player.direction = MOVE_LEFT;
+		window->player.dir = MOVE_LEFT;
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
 	}
@@ -74,7 +74,7 @@ void	move_right(t_window *window, int y, int x)
 		if (window->map_array[y][x + 1] == 'C')
 			window->player.coins_collected++;
 		window->player.x++;
-		window->player.direction = MOVE_RIGHT;
+		window->player.dir = MOVE_RIGHT;
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
 	}
@@ -105,7 +105,7 @@ int	handle_event(int keysym, t_window *window)
 	else
 	{
 		ft_printf("Invalid move! Try again.\n");
-		ft_printf("directionectional Keys are:\nUp: W\nDown: S\nLeft: A\nRight: D\n");
+		ft_printf("directional Keys are:\nUp: W\nDown: S\nLeft: A\nRight: D\n");
 	}
 	display_map(window);
 	return (0);
