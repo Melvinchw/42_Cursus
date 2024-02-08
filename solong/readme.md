@@ -51,7 +51,8 @@ The project requires us to code in 2 parts namely: Mandatory & Bonus. In the man
       '1' = Walls
       '0' = Floor
 
-## Bonus
+**Bonus**
+
 Adding on to what has been coded, this portion of the project should consists of 3 additional items and not restricted to more:
 - Roaming enemy.
 - Move counter displayed on X Window.
@@ -61,14 +62,18 @@ Adding on to what has been coded, this portion of the project should consists of
 I have split the code into 5 main parts:
 
 **Main Function**
+
 This is where the ```int main(int argc, char ** argv)``` is located. It checks for the correct number of inputs. Followed by whether the map file being opened is of the correct format ```.ber```. Once these conditions are met, it proceeds to initialize the game. That will be where the bulk of the code resides where functions from MiniLibx is used.
 
 **Initialize Game**
+
 This part of the code consist of functions from MiniLibx used to create a loop to initialize, display and continuously run the game window. I have further broken down this function into 3 sub functions:
-- Map Check
+
+```Map Check```
 
 This function checks the validity of the map: ```Is is a valid map? & Is it empty?```. Once these conditions are fulfilled, it then proceed to check all the game condition stated in the project requirement under ```Game Conditions```.
-- Game Conditions
+
+```Game Conditions```
 
 This function aims to check the project requirement stated below:
 
@@ -79,11 +84,11 @@ This function aims to check the project requirement stated below:
 
 If any of the conditions are not met, the game will not initilaize and exit with error(mentioned in ```Handle Errors``` below). Once all the conditions are met, the code proceedsd to initialize all the structures that have been declared.
 
-- Initialize Structure
+```Initialize Structure```
 
 In this part of the code, a main structure named ```window``` is declared to house the rest of the structure (nested structure): Player & Image. It is also where the ```mlx_ptr``` and ```win_ptr``` is located. This portion of the code also consists of a function to start filling the map onto the screen by iterating through the map array to place all the respective token within the map.
 
-- Render Map
+```Render Map```
 
 After the images have been loaded, the map is iterated where a function is used to put the specific image of each element onto the window.
 
