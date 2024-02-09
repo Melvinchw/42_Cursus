@@ -11,6 +11,12 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
+void	img_put(t_window *window, t_img *img_ptr, int y, int x)
+{
+	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, 
+		img_ptr, (x * SPRITE), (y * SPRITE));
+}
+
 void	free_image(t_window *window)
 {
 	mlx_destroy_image(window->mlx_ptr, window->map.coin_img[0].img_ptr);

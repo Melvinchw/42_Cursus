@@ -11,21 +11,6 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-t_img	load_image(t_window *window, char *filepath)
-{
-	t_img	img;
-
-	img.img_ptr = mlx_xpm_file_to_image(window->mlx_ptr,
-			filepath, &img.x, &img.y);
-	return (img);
-}
-
-void	img_put(t_window *window, t_img *img_ptr, int y, int x)
-{
-	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, 
-		img_ptr, (x * SPRITE), (y * SPRITE));
-}
-
 void	display_coins(t_window *window, bool start)
 {
 	static int	i;
@@ -92,7 +77,7 @@ void	display_map(t_window *window)
 		y++;
 	}
 	display_player(window, window->player);
-	display_coins(window, false);
+	display_enemy(window);
 }
 
 void	display_enemy(t_window *window)
@@ -113,7 +98,7 @@ void	display_moves(t_window *window)
 	char	*move_no;
 
 	move_no = ft_itoa(window->player.move_no);
-	mlx_string_put(window->mlx_ptr, window->win_ptr, 36, 40, WHITE, "Moves: ");
-	mlx_string_put(window->mlx_ptr, window->win_ptr, 75, 40, WHITE, move_no);
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 38, 40, WHITE, "Moves: ");
+	mlx_string_put(window->mlx_ptr, window->win_ptr, 77, 40, WHITE, move_no);
 	free(move_no);
 }

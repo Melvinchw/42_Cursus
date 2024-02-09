@@ -11,6 +11,15 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
+t_img	load_image(t_window *window, char *filepath)
+{
+	t_img	img;
+
+	img.img_ptr = mlx_xpm_file_to_image(window->mlx_ptr,
+			filepath, &img.x, &img.y);
+	return (img);
+}
+
 void	initialize_structure(t_window *window)
 {
 	window->mlx_ptr = NULL;
@@ -51,9 +60,6 @@ void	asset_to_characters(t_window *window)
 	window->map.player_2[MOVE_LEFT] = load_image(window, TURN_LEFT_2);
 	window->map.player_2[MOVE_UP] = load_image(window, TURN_UP_2);
 	window->map.player_2[MOVE_DOWN] = load_image(window, TURN_DOWN);
-	ft_printf("%s\n", window->map.exit_img.img_ptr);
-	ft_printf("%s\n", window->map.coin_img[0]);
-	ft_printf("%s\n", window->map.player_2[MOVE_DOWN].img_ptr);
 	window->map.en_img = load_image(window, EN);
 }
 
@@ -85,7 +91,7 @@ void	initialize_enemy(t_window *window)
 
 	i = 0;
 	y = 0;
-	while (window->map_array[y] && i < window->enemy_no)
+	while (window->map_array[y])
 	{
 		x = 0;
 		while (window->map_array[y][x])

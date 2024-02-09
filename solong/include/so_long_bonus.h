@@ -35,8 +35,8 @@
 # define MOVE_DOWN 1
 # define MOVE_LEFT 2
 # define MOVE_RIGHT 3
-# define EN_MOVEMENT 1000
-# define ANIMATION_COUNTER 500
+# define EN_MOVEMENT 500
+# define ANIMATION_COUNTER 450
 # define LIMIT 50
 
 //Process event handler
@@ -126,14 +126,13 @@ typedef struct s_window
 }	t_window;
 
 //utils_bonus.c
+void	img_put(t_window *window, t_img *img_ptr, int y, int x);
 void	free_image(t_window *window);
 void	free_array(char **array);
 void	handle_error(int err_no, char *err_msg, t_window *window);
 void	handle_exit(int fd, t_window *window);
 
 //render_bonus.c
-t_img	load_image(t_window *window, char *filepath);
-void	img_put(t_window *window, t_img *img_ptr, int y, int x);
 void	display_map(t_window *window);
 void	display_enemy(t_window *window);
 void	display_moves(t_window *window);
@@ -145,7 +144,7 @@ void	move_up(t_window *window, int y, int x);
 void	move_down(t_window *window, int y, int x);
 void	move_left(t_window *window, int y, int x);
 void	move_right(t_window *window, int y, int x);
-int		handle_event(int keysym, t_window *window);
+void	update_pos(t_window *window, int dir, int y, int x);
 
 //map_check_bonus.c
 void	empty_map_check(char *buffer);
@@ -153,12 +152,14 @@ void	valid_map_check(char *buffer);
 
 //initialize_game_bonus.c
 void	init_game(char *buffer);
+int		handle_event(int keysym, t_window *window);
+int		update_enemy(t_window *window);
 
 //initialize_bonus.c
+t_img	load_image(t_window *window, char *filepath);
 void	initialize_structure(t_window *window);
 void	asset_to_characters(t_window *window);
 void	initialize_map(t_window *window);
-int		update_enemy(t_window *window);
 void	initialize_enemy(t_window *window);
 
 //game_attributes_bonus.c
@@ -172,8 +173,8 @@ void	check_attributes(t_window *window, char *buffer);
 //enemy_bonus.c
 void	collision_check(t_window *window);
 void	enemy_new_pos(t_enemy *enemy);
-void	enemy_change_direction(t_enemy *enemy);
+void	enemy_change_direction(t_window *window, t_enemy *enemy);
 void	move_enemy(t_window *window);
-int		enemy_move_valid(t_window *window, t_enemy *enemy);
+int		enemy_move_valid(t_window *window, t_enemy enemy);
 
 #endif
