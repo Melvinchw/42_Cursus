@@ -23,6 +23,6 @@ void	check_attributes(t_window *window, char *buffer)
 	tempbuf = ft_split(buffer, '\n');
 	path_check(window, tempbuf, window->player.x, window->player.y);
 	free_array(tempbuf);
-	if (window->map.exit == 0)
+	if (window->map.exit_check == 0)
 		handle_error(3, "No exit within map!", window);
 }

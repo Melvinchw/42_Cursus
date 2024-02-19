@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		handle_error(1, "Incorrect number of inputs!", NULL);
 	if (ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], ".ber", 4) != 0)
-		handle_error(1, "Wrong file format!\n", NULL);
+		handle_error(1, "Wrong file format!", NULL);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		handle_error(2, "Error opening file!", NULL);

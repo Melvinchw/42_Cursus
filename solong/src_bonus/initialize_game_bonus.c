@@ -52,7 +52,7 @@ void	init_game(char *buffer)
 {
 	t_window	*window;
 
-	window = (t_window *)malloc(sizeof(t_window));
+	window = (t_window *)calloc(1, sizeof(t_window));
 	if (!window)
 		ft_printf("Allocation error!\n");
 	empty_map_check(buffer);

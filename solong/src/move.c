@@ -20,7 +20,9 @@ void	move_up(t_window *window, int y, int x)
 		if (window->map_array[y - 1][x] == 'C')
 			window->player.coins_collected++;
 		window->player.y--;
-		window->map.player_img = window->map.playerup_img;
+		if (window->map.player_img.img_ptr)
+			mlx_destroy_image(window->mlx_ptr, window->map.player_img.img_ptr);
+		window->map.player_img = load_image(window->mlx_ptr, TURN_UP);
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
 	}
@@ -38,7 +40,9 @@ void	move_down(t_window *window, int y, int x)
 		if (window->map_array[y + 1][x] == 'C')
 			window->player.coins_collected++;
 		window->player.y++;
-		window->map.player_img = window->map.playerdown_img;
+		if (window->map.player_img.img_ptr)
+			mlx_destroy_image(window->mlx_ptr, window->map.player_img.img_ptr);
+		window->map.player_img = load_image(window->mlx_ptr, TURN_DOWN);
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
 	}
@@ -56,7 +60,9 @@ void	move_left(t_window *window, int y, int x)
 		if (window->map_array[y][x - 1] == 'C')
 			window->player.coins_collected++;
 		window->player.x--;
-		window->map.player_img = window->map.playerleft_img;
+		if (window->map.player_img.img_ptr)
+			mlx_destroy_image(window->mlx_ptr, window->map.player_img.img_ptr);
+		window->map.player_img = load_image(window->mlx_ptr, TURN_LEFT);
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
 	}
@@ -74,7 +80,9 @@ void	move_right(t_window *window, int y, int x)
 		if (window->map_array[y][x + 1] == 'C')
 			window->player.coins_collected++;
 		window->player.x++;
-		window->map.player_img = window->map.playerright_img;
+		if (window->map.player_img.img_ptr)
+			mlx_destroy_image(window->mlx_ptr, window->map.player_img.img_ptr);
+		window->map.player_img = load_image(window->mlx_ptr, TURN_RIGHT);
 		window->player.move_no++;
 		ft_printf("Move count: %d\n", window->player.move_no);
 	}
@@ -105,7 +113,8 @@ int	handle_event(int keysym, t_window *window)
 	else
 	{
 		ft_printf("Invalid move! Try again.\n");
-		ft_printf("directionectional Keys are:\nUp: W\nDown: S\nLeft: A\nRight: D\n");
+		ft_printf("directionectional Keys are:\nUp: W\nDown: S\n");
+		ft_printf("Left: A\nRight: D\n");
 	}
 	map_renderer(window);
 	return (0);

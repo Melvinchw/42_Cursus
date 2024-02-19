@@ -32,11 +32,7 @@ void	asset_to_characters(t_window *window)
 	window->map.exit_img = load_image(window->mlx_ptr, EXIT);
 	window->map.wall_img = load_image(window->mlx_ptr, WALL);
 	window->map.floor_img = load_image(window->mlx_ptr, FLOOR);
-	window->map.playerright_img = load_image(window->mlx_ptr, TURN_RIGHT);
-	window->map.playerleft_img = load_image(window->mlx_ptr, TURN_LEFT);
-	window->map.playerup_img = load_image(window->mlx_ptr, TURN_UP);
-	window->map.playerdown_img = load_image(window->mlx_ptr, TURN_DOWN);
-	window->map.player_img = load_image(window->mlx_ptr, TURN_DOWN);
+	window->map.player_img = load_image(window->mlx_ptr, ORG);
 }
 
 void	initialize_map(t_window *window)

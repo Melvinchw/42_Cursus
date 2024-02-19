@@ -16,10 +16,8 @@ void	free_image(t_window *window)
 	mlx_destroy_image(window->mlx_ptr, window->map.wall_img.img_ptr);
 	mlx_destroy_image(window->mlx_ptr, window->map.coin_img.img_ptr);
 	mlx_destroy_image(window->mlx_ptr, window->map.floor_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.playerdown_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.playerup_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.playerleft_img.img_ptr);
-	mlx_destroy_image(window->mlx_ptr, window->map.playerright_img.img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.exit_img.img_ptr);
+	mlx_destroy_image(window->mlx_ptr, window->map.player_img.img_ptr);
 }
 
 void	free_array(char **array)
@@ -66,6 +64,8 @@ void	handle_exit(int fd, t_window *window)
 		free_image(window);
 		mlx_destroy_window(window->mlx_ptr, window->win_ptr);
 		mlx_destroy_display(window->mlx_ptr);
+		free(window->mlx_ptr);
+		free(window);
 		exit(0);
 	}
 }

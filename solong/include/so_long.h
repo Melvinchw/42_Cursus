@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/19 21:52:33 by mchua             #+#    #+#             */
+/*   Updated: 2024/02/19 21:53:21 by mchua            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -30,6 +40,7 @@
 # define TURN_LEFT "./assets/turn_left.xpm"
 # define TURN_UP "./assets/turn_up.xpm"
 # define TURN_DOWN "./assets/turn_down.xpm"
+# define ORG "./assets/original.xpm"
 # define EXIT "./assets/exit.xpm"
 # define COINS "./assets/bonus/coin_1.xpm"
 
@@ -95,8 +106,7 @@ typedef struct s_window
 void	free_image(t_window *window);
 void	free_array(char **array);
 void	handle_exit(int fd, t_window *window);
-void	handle_error(int err_no, char *err_msg,t_window *window);
-
+void	handle_error(int err_no, char *err_msg, t_window *window);
 
 //render.c
 t_img	load_image(void *mlx_ptr, char *filepath);
