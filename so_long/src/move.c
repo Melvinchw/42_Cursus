@@ -113,7 +113,7 @@ int	handle_event(int keysym, t_window *window)
 	else
 	{
 		ft_printf("Invalid move! Try again.\n");
-		ft_printf("directionectional Keys are:\nUp: W\nDown: S\n");
+		ft_printf("directional Keys are:\nUp: W\nDown: S\n");
 		ft_printf("Left: A\nRight: D\n");
 	}
 	map_renderer(window);

@@ -69,3 +69,9 @@ void	handle_exit(int fd, t_window *window)
 		exit(0);
 	}
 }
+
+int	exit_game(t_window *window)
+{
+	handle_exit(3, window);
+	return (0);
+}

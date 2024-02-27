@@ -107,6 +107,7 @@ void	free_image(t_window *window);
 void	free_array(char **array);
 void	handle_exit(int fd, t_window *window);
 void	handle_error(int err_no, char *err_msg, t_window *window);
+int		exit_game(t_window *window);
 
 //render.c
 t_img	load_image(void *mlx_ptr, char *filepath);

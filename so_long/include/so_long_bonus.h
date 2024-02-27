@@ -154,6 +154,7 @@ void	valid_map_check(char *buffer);
 void	init_game(char *buffer);
 int		handle_event(int keysym, t_window *window);
 int		update_enemy(t_window *window);
+int		exit_game(t_window *window);
 
 //initialize_bonus.c
 t_img	load_image(t_window *window, char *filepath);

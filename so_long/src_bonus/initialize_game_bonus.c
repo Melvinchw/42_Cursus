@@ -48,6 +48,12 @@ int	update_enemy(t_window *window)
 	return (0);
 }
 
+int	exit_game(t_window *window)
+{
+	handle_exit(3, window);
+	return (0);
+}
+
 void	init_game(char *buffer)
 {
 	t_window	*window;
@@ -73,5 +79,6 @@ void	init_game(char *buffer)
 	display_map(window);
 	mlx_key_hook(window->win_ptr, handle_event, window);
 	mlx_loop_hook(window->mlx_ptr, update_enemy, window);
+	mlx_hook(window->win_ptr, 17, 0L, exit_game, window);
 	mlx_loop(window->mlx_ptr);
 }
