@@ -13,7 +13,7 @@
 
 void	move_up(t_window *window, int y, int x)
 {
-	if (window->map_array[y - 1][x] == '0' 
+	if (window->map_array[y - 1][x] == '0'
 		|| window->map_array[y - 1][x] == 'C')
 	{
 		window->map_array[y][x] = '0';
@@ -33,7 +33,7 @@ void	move_up(t_window *window, int y, int x)
 
 void	move_down(t_window *window, int y, int x)
 {
-	if (window->map_array[y + 1][x] == '0' 
+	if (window->map_array[y + 1][x] == '0'
 		|| window->map_array[y + 1][x] == 'C')
 	{
 		window->map_array[y][x] = '0';
@@ -53,7 +53,7 @@ void	move_down(t_window *window, int y, int x)
 
 void	move_left(t_window *window, int y, int x)
 {
-	if (window->map_array[y][x - 1] == '0' 
+	if (window->map_array[y][x - 1] == '0'
 		|| window->map_array[y][x - 1] == 'C')
 	{
 		window->map_array[y][x] = '0';
@@ -73,7 +73,7 @@ void	move_left(t_window *window, int y, int x)
 
 void	move_right(t_window *window, int y, int x)
 {
-	if (window->map_array[y][x + 1] == '0' 
+	if (window->map_array[y][x + 1] == '0'
 		|| window->map_array[y][x + 1] == 'C')
 	{
 		window->map_array[y][x] = '0';
@@ -96,19 +96,19 @@ int	handle_event(int keysym, t_window *window)
 	if (keysym == ESC)
 	{
 		ft_printf("Escape key pressed!\n");
-		handle_exit(3, window);
+		handle_exit(4, window);
 	}
-	if (keysym == KEY_W && 
-		window->map_array[window->player.y - 1][window->player.x] != '1')
+	if (keysym == KEY_W
+		&& window->map_array[window->player.y - 1][window->player.x] != '1')
 		move_up(window, window->player.y, window->player.x);
-	else if (keysym == KEY_S && 
-		window->map_array[window->player.y + 1][window->player.x] != '1')
+	else if (keysym == KEY_S
+		&& window->map_array[window->player.y + 1][window->player.x] != '1')
 		move_down(window, window->player.y, window->player.x);
-	else if (keysym == KEY_A && 
-		window->map_array[window->player.y][window->player.x - 1] != '1')
+	else if (keysym == KEY_A
+		&& window->map_array[window->player.y][window->player.x - 1] != '1')
 		move_left(window, window->player.y, window->player.x);
-	else if (keysym == KEY_D && 
-		window->map_array[window->player.y][window->player.x + 1] != '1')
+	else if (keysym == KEY_D
+		&& window->map_array[window->player.y][window->player.x + 1] != '1')
 		move_right(window, window->player.y, window->player.x);
 	else
 	{

@@ -13,7 +13,7 @@
 
 void	img_put(t_window *window, t_img *img_ptr, int y, int x)
 {
-	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, 
+	mlx_put_image_to_window(window->mlx_ptr, window->win_ptr, \
 		img_ptr, (x * SPRITE), (y * SPRITE));
 }
 
@@ -62,7 +62,6 @@ void	handle_error(int err_no, char *err_msg, t_window *window)
 		ft_printf("Invalid map error: %s\n", err_msg);
 	else if (err_no == 4)
 		ft_printf("Memory allocation error\n", err_msg);
-	exit(0);
 	if (err_no == 5)
 		ft_printf("Game attribute error: %s\n", err_msg);
 	handle_exit(3, window);
@@ -80,10 +79,13 @@ void	handle_exit(int fd, t_window *window)
 	if (fd != 0)
 	{
 		ft_printf("Closing game. Goodbye!\n");
-		free_image(window);
-		mlx_destroy_window(window->mlx_ptr, window->win_ptr);
-		mlx_destroy_display(window->mlx_ptr);
-		free(window->mlx_ptr);
+		if (fd != 3)
+		{
+			free_image(window);
+			mlx_destroy_window(window->mlx_ptr, window->win_ptr);
+			mlx_destroy_display(window->mlx_ptr);
+			free(window->mlx_ptr);
+		}
 		free(window);
 		exit(0);
 	}

@@ -15,11 +15,11 @@ void	init_game(char *buffer)
 {
 	t_window	*window;
 
+	empty_map_check(buffer);
+	valid_map_check(buffer);
 	window = (t_window *)ft_calloc(1, sizeof(t_window));
 	if (!window)
 		ft_printf("Allocation error\n");
-	empty_map_check(buffer);
-	valid_map_check(buffer);
 	initialize_structure(window);
 	window->map_array = ft_split(buffer, '\n');
 	check_attributes(window, buffer);

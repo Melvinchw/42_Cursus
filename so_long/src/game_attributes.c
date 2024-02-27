@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-void	rectangle_check(t_window *window, int height)
+int	rectangle_check(t_window *window, int height)
 {
 	int	reference_width;
 	int	y;
@@ -21,12 +21,13 @@ void	rectangle_check(t_window *window, int height)
 	while (y < height - 1)
 	{
 		if (ft_strlen(window->map_array[y]) != reference_width)
-			handle_error(3, "Map not rectangular!", window);
+			return (2);
 		y++;
 	}
+	return (0);
 }
 
-void	wall_check(t_window *window, int width, int height)
+int	wall_check(t_window *window, int width, int height)
 {
 	int	x;
 	int	y;
@@ -37,19 +38,20 @@ void	wall_check(t_window *window, int width, int height)
 	{
 		if (window->map_array[0][x] != '1' ||
 				window->map_array[height - 1][x] != '1')
-			handle_error(3, "Map not surrounded by walls!", window);
+			return (3);
 		x++;
 	}
 	while (y < height)
 	{
 		if (window->map_array[y][0] != '1' ||
 				window->map_array[y][width - 1] != '1')
-			handle_error(3, "Map not surrounded by walls!", window);
+			return (3);
 		y++;
 	}
+	return (0);
 }
 
-void	token_check(t_window *window)
+int	token_check(t_window *window)
 {
 	int	x;
 	int	y;
@@ -71,7 +73,8 @@ void	token_check(t_window *window)
 		y++;
 	}
 	if (window->map.player != 1 || window->map.exit != 1 || !window->map.coins)
-		handle_error(3, "Wrong Token Count!", window);
+		return (1);
+	return (0);
 }
 
 void	path_check(t_window *window, char **tempbuf, int x, int y)
@@ -102,11 +105,24 @@ void	check_attributes(t_window *window, char *buffer)
 	initialize_map(window);
 	rectangle_check(window, window->height);
 	wall_check(window, window->length, window->height);
-	token_check(window);
+	if (token_check(window) == 1 || rectangle_check(window, window->height) == 2
+		|| wall_check(window, window->length, window->height) == 3)
+	{
+		free(buffer);
+		if (1)
+			handle_error(3, "Wrong Token Count!", window);
+		else if (2)
+			handle_error(3, "Map not rectangular!", window);
+		else
+			handle_error(3, "Map not surrounded by walls!", window);
+	}
 	player_pos(window);
 	tempbuf = ft_split(buffer, '\n');
 	path_check(window, tempbuf, window->player.x, window->player.y);
 	free_array(tempbuf);
 	if (window->map.exit_check == 0)
+	{
+		free(buffer);
 		handle_error(3, "No exit found!", window);
+	}
 }

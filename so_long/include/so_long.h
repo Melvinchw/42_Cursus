@@ -134,9 +134,9 @@ void	asset_to_characters(t_window *window);
 void	initialize_map(t_window *window);
 
 //game_attributes.c
-void	rectangle_check(t_window *window, int height);
-void	wall_check(t_window *window, int width, int height);
-void	token_check(t_window *window);
+int		rectangle_check(t_window *window, int height);
+int		wall_check(t_window *window, int width, int height);
+int		token_check(t_window *window);
 void	player_pos(t_window *window);
 void	path_check(t_window *window, char **tempbuf, int x, int y);
 void	check_attributes(t_window *window, char *buffer);

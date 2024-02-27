@@ -16,13 +16,25 @@ void	check_attributes(t_window *window, char *buffer)
 	char	**tempbuf;
 
 	initialize_map(window);
-	rectangle_check(window, window->height);
-	wall_check(window, window->length, window->height);
-	token_check(window);
+	if (token_check(window) == 1 || \
+		rectangle_check(window, window->height) == 2 || \
+		wall_check(window, window->length, window->height) == 3)
+	{
+		free(buffer);
+		if (1)
+			handle_error(3, "Wrong token count!", window);
+		else if (2)
+			handle_error(3, "Map not rectangular!", window);
+		else
+			handle_error(3, "Map not fully surrounded by walls!", window);
+	}
 	player_pos(window);
 	tempbuf = ft_split(buffer, '\n');
 	path_check(window, tempbuf, window->player.x, window->player.y);
 	free_array(tempbuf);
 	if (window->map.exit_check == 0)
+	{
+		free(buffer);
 		handle_error(3, "No exit within map!", window);
+	}
 }

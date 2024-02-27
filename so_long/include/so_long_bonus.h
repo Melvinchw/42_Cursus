@@ -35,8 +35,8 @@
 # define MOVE_DOWN 1
 # define MOVE_LEFT 2
 # define MOVE_RIGHT 3
-# define EN_MOVEMENT 500
-# define ANIMATION_COUNTER 450
+# define EN_MOVEMENT 1500
+# define ANIMATION_COUNTER 800
 # define LIMIT 50
 
 //Process event handler
@@ -48,7 +48,6 @@
 # define TURN_RIGHT_1	"./assets/bonus/turn_right_1.xpm"
 # define TURN_LEFT_1	"./assets/bonus/turn_left_1.xpm"
 # define TURN_UP_1	"./assets/bonus/turn_up_1.xpm"
-# define TURN_DOWN	"./assets//bonus/turn_down_1.xpm"
 # define TURN_RIGHT_2	"./assets/bonus/turn_right_2.xpm"
 # define TURN_LEFT_2	"./assets/bonus/turn_left_2.xpm"
 # define TURN_UP_2	"./assets/bonus/turn_up_2.xpm"
@@ -59,6 +58,7 @@
 # define COINS_4	"./assets/bonus/coin_4.xpm"
 # define COINS_5	"./assets/bonus/coin_5.xpm"
 # define COINS_6	"./assets/bonus/coin_6.xpm"
+# define TURN_DOWN	"./assets/bonus/turn_down_1.xpm"
 # define EN	"./assets/bonus/en.xpm"
 
 //Image and buffer size
@@ -122,7 +122,7 @@ typedef struct s_window
 	char		**map_array;
 	t_map		map;
 	t_player	player;
-	t_enemy		enemy[LIMIT]; 
+	t_enemy		enemy[LIMIT];
 }	t_window;
 
 //utils_bonus.c
@@ -164,9 +164,9 @@ void	initialize_map(t_window *window);
 void	initialize_enemy(t_window *window);
 
 //game_attributes_bonus.c
-void	rectangle_check(t_window *window, int height);
-void	wall_check(t_window *window, int width, int height);
-void	token_check(t_window *window);
+int		rectangle_check(t_window *window, int height);
+int		wall_check(t_window *window, int width, int height);
+int		token_check(t_window *window);
 void	player_pos(t_window *window);
 void	path_check(t_window *window, char **tempbuf, int x, int y);
 void	check_attributes(t_window *window, char *buffer);

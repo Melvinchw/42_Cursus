@@ -87,7 +87,7 @@ void	display_enemy(t_window *window)
 	i = 0;
 	while (i < window->enemy_no)
 	{
-		img_put(window, window->map.en_img.img_ptr, 
+		img_put(window, window->map.en_img.img_ptr, \
 			window->enemy[i].y, window->enemy[i].x);
 		i++;
 	}

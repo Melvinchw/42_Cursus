@@ -16,18 +16,18 @@ int	handle_event(int keysym, t_window *window)
 	if (keysym == ESC)
 	{
 		ft_printf("Escape key pressed!\n");
-		handle_exit(3, window);
+		handle_exit(4, window);
 	}
-	if (keysym == KEY_W && 
+	if (keysym == KEY_W && \
 		window->map_array[window->player.y - 1][window->player.x] != '1')
 		move_up(window, window->player.y, window->player.x);
-	else if (keysym == KEY_S && 
+	else if (keysym == KEY_S && \
 		window->map_array[window->player.y + 1][window->player.x] != '1')
 		move_down(window, window->player.y, window->player.x);
-	else if (keysym == KEY_A && 
+	else if (keysym == KEY_A && \
 		window->map_array[window->player.y][window->player.x - 1] != '1')
 		move_left(window, window->player.y, window->player.x);
-	else if (keysym == KEY_D && 
+	else if (keysym == KEY_D && \
 		window->map_array[window->player.y][window->player.x + 1] != '1')
 		move_right(window, window->player.y, window->player.x);
 	else
@@ -50,7 +50,7 @@ int	update_enemy(t_window *window)
 
 int	exit_game(t_window *window)
 {
-	handle_exit(3, window);
+	handle_exit(4, window);
 	return (0);
 }
 
@@ -58,11 +58,11 @@ void	init_game(char *buffer)
 {
 	t_window	*window;
 
+	empty_map_check(buffer);
+	valid_map_check(buffer);
 	window = (t_window *)calloc(1, sizeof(t_window));
 	if (!window)
 		ft_printf("Allocation error!\n");
-	empty_map_check(buffer);
-	valid_map_check(buffer);
 	initialize_structure(window);
 	window->map_array = ft_split(buffer, '\n');
 	check_attributes(window, buffer);

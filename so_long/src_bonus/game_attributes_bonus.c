@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-void	rectangle_check(t_window *window, int height)
+int	rectangle_check(t_window *window, int height)
 {
 	int	reference_width;
 	int	y;
@@ -20,14 +20,15 @@ void	rectangle_check(t_window *window, int height)
 	reference_width = ft_strlen(window->map_array[y]);
 	while (y < height)
 	{
-		if (ft_strlen(window->map_array[y]) != reference_width 
+		if (ft_strlen(window->map_array[y]) != reference_width \
 			|| reference_width < height)
-			handle_error(3, "Map not rectangular!", window);
+			return (2);
 		y++;
 	}
+	return (0);
 }
 
-void	wall_check(t_window *window, int length, int height)
+int	wall_check(t_window *window, int length, int height)
 {
 	int	x;
 	int	y;
@@ -36,21 +37,22 @@ void	wall_check(t_window *window, int length, int height)
 	y = 0;
 	while (x < length)
 	{
-		if (window->map_array[0][x] != '1' 
+		if (window->map_array[0][x] != '1' \
 			|| window->map_array[height - 1][x] != '1')
-			handle_error(3, "Map not fully surrounded by walls!", window);
+			return (3);
 		x++;
 	}
 	while (y < height)
 	{
-		if (window->map_array[y][0] != '1' 
+		if (window->map_array[y][0] != '1' \
 			|| window->map_array[y][length - 1] != '1')
-			handle_error(3, "Map not fully surrounded by walls!", window);
+			return (3);
 		y++;
 	}
+	return (0);
 }
 
-void	token_check(t_window *window)
+int	token_check(t_window *window)
 {
 	int	x;
 	int	y;
@@ -73,9 +75,10 @@ void	token_check(t_window *window)
 		}
 		y++;
 	}
-	if (window->map.player != 1 
+	if (window->map.player != 1 \
 		|| window->map.exit != 1 || window->map.coins < 1)
-		handle_error(3, "Wrong token count!", window);
+		return (1);
+	return (0);
 }
 
 void	player_pos(t_window *window)
@@ -112,7 +115,7 @@ void	path_check(t_window *window, char **tempbuf, int x, int y)
 	}
 	if (tempbuf[y][x] == 'C')
 		window->map.coins_check++;
-	if (window->map.exit_check == 2 
+	if (window->map.exit_check == 2 \
 		&& window->map.coins != window->map.coins_check)
 		return ;
 	tempbuf[y][x] = '1';

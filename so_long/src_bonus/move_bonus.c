@@ -13,7 +13,7 @@
 
 void	move_up(t_window *window, int y, int x)
 {
-	if (window->map_array[y - 1][x] == '0' 
+	if (window->map_array[y - 1][x] == '0' \
 		|| window->map_array[y - 1][x] == 'C')
 	{
 		window->player.dir = MOVE_UP;
@@ -28,7 +28,7 @@ void	move_up(t_window *window, int y, int x)
 
 void	move_down(t_window *window, int y, int x)
 {
-	if (window->map_array[y + 1][x] == '0' 
+	if (window->map_array[y + 1][x] == '0' \
 		|| window->map_array[y + 1][x] == 'C')
 	{
 		window->player.dir = MOVE_DOWN;
@@ -43,7 +43,7 @@ void	move_down(t_window *window, int y, int x)
 
 void	move_left(t_window *window, int y, int x)
 {
-	if (window->map_array[y][x - 1] == '0' 
+	if (window->map_array[y][x - 1] == '0' \
 		|| window->map_array[y][x - 1] == 'C')
 	{
 		window->player.dir = MOVE_LEFT;
@@ -58,7 +58,7 @@ void	move_left(t_window *window, int y, int x)
 
 void	move_right(t_window *window, int y, int x)
 {
-	if (window->map_array[y][x + 1] == '0' 
+	if (window->map_array[y][x + 1] == '0' \
 		|| window->map_array[y][x + 1] == 'C')
 	{
 		window->player.dir = MOVE_RIGHT;

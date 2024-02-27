@@ -18,7 +18,7 @@ void	collision_check(t_window *window)
 	i = 0;
 	while (i < window->enemy_no)
 	{
-		if (window->enemy[i].y == window->player.y 
+		if (window->enemy[i].y == window->player.y \
 			&& window->enemy[i].x == window->player.x)
 			handle_exit(2, window);
 		i++;
@@ -80,16 +80,16 @@ void	move_enemy(t_window *window)
 
 int	enemy_move_valid(t_window *window, t_enemy enemy)
 {
-	if (enemy.dir == MOVE_UP 
+	if (enemy.dir == MOVE_UP \
 		&& !ft_strrchr("1CE", window->map_array[enemy.y - 1][enemy.x]))
 		return (1);
-	if (enemy.dir == MOVE_DOWN 
+	if (enemy.dir == MOVE_DOWN \
 		&& !ft_strrchr("1CE", window->map_array[enemy.y + 1][enemy.x]))
 		return (1);
-	if (enemy.dir == MOVE_RIGHT 
+	if (enemy.dir == MOVE_RIGHT \
 		&& !ft_strrchr("1CE", window->map_array[enemy.y][enemy.x + 1]))
 		return (1);
-	if (enemy.dir == MOVE_LEFT 
+	if (enemy.dir == MOVE_LEFT \
 		&& !ft_strrchr("1CE", window->map_array[enemy.y][enemy.x - 1]))
 		return (1);
 	return (0);
