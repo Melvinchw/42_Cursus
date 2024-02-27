@@ -35,31 +35,31 @@
 # define MOVE_DOWN 1
 # define MOVE_LEFT 2
 # define MOVE_RIGHT 3
-# define EN_MOVEMENT 1500
-# define ANIMATION_COUNTER 800
+# define EN_MOVEMENT 10000
+# define ANIMATION_COUNTER 5000
 # define LIMIT 50
 
 //Process event handler
 # define DESTROYWINDOW 17
 
 //Asset filepath
-# define WALL	"./assets/bonus/wall.xpm"
-# define FLOOR	"./assets/bonus/floor.xpm"
-# define TURN_RIGHT_1	"./assets/bonus/turn_right_1.xpm"
-# define TURN_LEFT_1	"./assets/bonus/turn_left_1.xpm"
-# define TURN_UP_1	"./assets/bonus/turn_up_1.xpm"
-# define TURN_RIGHT_2	"./assets/bonus/turn_right_2.xpm"
-# define TURN_LEFT_2	"./assets/bonus/turn_left_2.xpm"
-# define TURN_UP_2	"./assets/bonus/turn_up_2.xpm"
-# define EXIT	"./assets/bonus/exit.xpm"
-# define COINS_1	"./assets/bonus/coin_1.xpm"
-# define COINS_2	"./assets/bonus/coin_2.xpm"
-# define COINS_3	"./assets/bonus/coin_3.xpm"
-# define COINS_4	"./assets/bonus/coin_4.xpm"
-# define COINS_5	"./assets/bonus/coin_5.xpm"
-# define COINS_6	"./assets/bonus/coin_6.xpm"
-# define TURN_DOWN	"./assets/bonus/turn_down_1.xpm"
-# define EN	"./assets/bonus/en.xpm"
+# define WALL	"./textures/bonus/wall.xpm"
+# define FLOOR	"./textures/bonus/floor.xpm"
+# define TURN_RIGHT_1	"./textures/bonus/turn_right_1.xpm"
+# define TURN_LEFT_1	"./textures/bonus/turn_left_1.xpm"
+# define TURN_UP_1	"./textures/bonus/turn_up_1.xpm"
+# define TURN_RIGHT_2	"./textures/bonus/turn_right_2.xpm"
+# define TURN_LEFT_2	"./textures/bonus/turn_left_2.xpm"
+# define TURN_UP_2	"./textures/bonus/turn_up_2.xpm"
+# define EXIT	"./textures/bonus/exit.xpm"
+# define COINS_1	"./textures/bonus/coin_1.xpm"
+# define COINS_2	"./textures/bonus/coin_2.xpm"
+# define COINS_3	"./textures/bonus/coin_3.xpm"
+# define COINS_4	"./textures/bonus/coin_4.xpm"
+# define COINS_5	"./textures/bonus/coin_5.xpm"
+# define COINS_6	"./textures/bonus/coin_6.xpm"
+# define TURN_DOWN	"./textures/bonus/turn_down_1.xpm"
+# define EN	"./textures/bonus/en.xpm"
 
 //Image and buffer size
 # define SPRITE 32

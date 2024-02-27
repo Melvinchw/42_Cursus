@@ -34,15 +34,15 @@
 # define DESTROYWINDOW 17
 
 //Asset filepath
-# define WALL "./assets/wall.xpm"
-# define FLOOR "./assets/floor.xpm"
-# define TURN_RIGHT "./assets/turn_right.xpm"
-# define TURN_LEFT "./assets/turn_left.xpm"
-# define TURN_UP "./assets/turn_up.xpm"
-# define TURN_DOWN "./assets/turn_down.xpm"
-# define ORG "./assets/original.xpm"
-# define EXIT "./assets/exit.xpm"
-# define COINS "./assets/bonus/coin_1.xpm"
+# define WALL "./textures/bonus/wall.xpm"
+# define FLOOR "./textures/bonus/floor.xpm"
+# define TURN_RIGHT "./textures/bonus/turn_right_1.xpm"
+# define TURN_LEFT "./textures/bonus/turn_left_1.xpm"
+# define TURN_UP "./textures/bonus/turn_up_1.xpm"
+# define TURN_DOWN "./textures/bonus/turn_down_1.xpm"
+# define ORG "./textures/bonus/turn_down_1.xpm"
+# define EXIT "./textures/bonus/exit.xpm"
+# define COINS "./textures/bonus/coin_1.xpm"
 
 //Image and buffer size
 # define SPRITE 32
