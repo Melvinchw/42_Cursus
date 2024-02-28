@@ -20,4 +20,15 @@
 # include <sys/wait.h>
 # include "./libft/libft.h"
 
+//process.c
+void	child_process(char **argv, char **envp, int *fd);
+void	parent_process(char **argv, char **envp, int *fd);
+
+//utils.c
+void	error(void);
+void	free_array(char **array);
+
+//commands.c
+char	*pathfinder(char *cmd, char **envp);
+void	execute_cmd(char *argv, char **envp);
 #endif

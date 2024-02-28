@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_putunsigned.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 10:05:14 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/24 10:06:15 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/27 20:21:09 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/27 20:21:10 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+int	ft_putunsigned(unsigned int n)
 {
-	unsigned int	i;
-	char			*result;
+	unsigned long	num;
+	int				count;
 
-	i = 0;
-	if (!s)
-		return (ft_strdup(""));
-	else if (!f)
-		return (ft_strdup(s));
-	result = ft_strdup(s);
-	if (!result)
-		return (NULL);
-	while (s[i] != '\0')
+	num = n;
+	count = 0;
+	if (num >= 10)
 	{
-		result[i] = (*f)(i, s[i]);
-		i++;
+		count += 1 + ft_putunsigned(num / 10);
+		ft_putchar((num % 10) + '0');
 	}
-	return (result);
+	else
+		count += ft_putchar(num + '0');
+	return (count);
 }

@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 10:05:14 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/24 10:06:15 by mchua            ###   ########.fr       */
+/*   Created: 2023/08/22 20:55:23 by mchua             #+#    #+#             */
+/*   Updated: 2023/08/22 20:55:24 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	ft_bzero(void *s, size_t n)
 {
-	unsigned int	i;
-	char			*result;
+	size_t	i;
 
 	i = 0;
-	if (!s)
-		return (ft_strdup(""));
-	else if (!f)
-		return (ft_strdup(s));
-	result = ft_strdup(s);
-	if (!result)
-		return (NULL);
-	while (s[i] != '\0')
+	while (i < n)
 	{
-		result[i] = (*f)(i, s[i]);
+		ft_memset(s, 0, n);
 		i++;
 	}
-	return (result);
 }

@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 10:05:14 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/24 10:06:15 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/24 10:58:33 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/24 10:58:34 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+char	*ft_strnstr(const char *src, const char *substr, size_t len)
 {
-	unsigned int	i;
-	char			*result;
+	size_t	i;
+	size_t	j;
 
+	if (*substr == '\0')
+		return ((char *)src);
 	i = 0;
-	if (!s)
-		return (ft_strdup(""));
-	else if (!f)
-		return (ft_strdup(s));
-	result = ft_strdup(s);
-	if (!result)
-		return (NULL);
-	while (s[i] != '\0')
+	while (src[i] != '\0' && i < len)
 	{
-		result[i] = (*f)(i, s[i]);
+		j = 0;
+		while (substr[j] == src[i + j] && (i + j) < len)
+		{
+			if (substr[j + 1] == '\0')
+			{
+				return ((char *)src + i);
+			}
+			j++;
+		}
 		i++;
 	}
-	return (result);
+	return (NULL);
 }

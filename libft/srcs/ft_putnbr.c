@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 10:05:14 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/24 10:06:15 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/27 20:19:15 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/27 20:19:23 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+int	ft_putnbr(int n)
 {
-	unsigned int	i;
-	char			*result;
+	long	num;
+	int		count;
 
-	i = 0;
-	if (!s)
-		return (ft_strdup(""));
-	else if (!f)
-		return (ft_strdup(s));
-	result = ft_strdup(s);
-	if (!result)
-		return (NULL);
-	while (s[i] != '\0')
+	num = n;
+	count = 0;
+	if (n < 0)
 	{
-		result[i] = (*f)(i, s[i]);
-		i++;
+		num *= -1;
+		ft_putchar('-');
+		count += 1;
 	}
-	return (result);
+	if (num >= 10)
+	{
+		count += 1 + ft_putnbr(num / 10);
+		ft_putchar((num % 10) + '0');
+	}
+	else
+		count += ft_putchar(num + '0');
+	return (count);
 }

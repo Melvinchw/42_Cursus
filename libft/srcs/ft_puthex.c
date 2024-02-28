@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 10:05:14 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/24 10:06:15 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/27 20:20:08 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/27 20:20:10 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+int	ft_puthex(unsigned int n, char c)
 {
-	unsigned int	i;
-	char			*result;
+	int					count;
+	char				*list;
+	unsigned long int	num;
 
-	i = 0;
-	if (!s)
-		return (ft_strdup(""));
-	else if (!f)
-		return (ft_strdup(s));
-	result = ft_strdup(s);
-	if (!result)
-		return (NULL);
-	while (s[i] != '\0')
+	count = 0;
+	num = n;
+	if (c == 'x')
+		list = "0123456789abcdef";
+	else if (c == 'X')
+		list = "0123456789ABCDEF";
+	if (n >= 16)
 	{
-		result[i] = (*f)(i, s[i]);
-		i++;
+		count += 1 + ft_puthex((num / 16), c);
+		ft_putchar(list[num % 16]);
 	}
-	return (result);
+	else
+		count += ft_putchar(list[num % 16]);
+	return (count);
 }

@@ -6,16 +6,16 @@
 #    By: mchua <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/02 20:21:27 by mchua             #+#    #+#              #
-#    Updated: 2024/01/02 20:46:05 by mchua            ###   ########.fr        #
+#    Updated: 2024/02/28 21:55:38 by mchua            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 INCLUDE:=./include
 TARGET:=pipex
-SRCS:=main
+SRCS:=pipex process utils commands
 OBJS:=${SRCS:=.o}
 LIB:=libft.a
 CC:=cc
-CFLAGS:= -Wall -Werror -Wextra -I ${INCLUDE}
+CFLAGS:= -g -Wall -Werror -Wextra -I ${INCLUDE}
 AR:=ar crs
 RM:= rm -rf
 
@@ -33,4 +33,5 @@ clean:
 	$(RM) $(OBJS)
 fclean: clean
 	$(RM) $(TARGET)
+	$(RM) $(LIB)
 re: fclean all

@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 10:05:14 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/24 10:06:15 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/13 22:28:51 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/13 22:28:58 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+int	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	unsigned int	i;
-	char			*result;
+	size_t	i;
+	size_t	count;
 
 	i = 0;
-	if (!s)
-		return (ft_strdup(""));
-	else if (!f)
-		return (ft_strdup(s));
-	result = ft_strdup(s);
-	if (!result)
-		return (NULL);
-	while (s[i] != '\0')
+	count = 0;
+	while (src[count] != '\0')
+		count++;
+	if (size <= 0)
+		return (count);
+	while (src[i] != '\0' && i < (size - 1))
 	{
-		result[i] = (*f)(i, s[i]);
+		dst[i] = src[i];
 		i++;
 	}
-	return (result);
+	dst[i] = '\0';
+	return (count);
 }

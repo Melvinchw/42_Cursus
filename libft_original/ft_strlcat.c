@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 10:05:14 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/24 10:06:15 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/24 10:47:53 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/24 10:47:55 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	unsigned int	i;
-	char			*result;
+	size_t	result;
+	size_t	dest_len;
+	size_t	src_len;
 
-	i = 0;
-	if (!s)
-		return (ft_strdup(""));
-	else if (!f)
-		return (ft_strdup(s));
-	result = ft_strdup(s);
-	if (!result)
-		return (NULL);
-	while (s[i] != '\0')
-	{
-		result[i] = (*f)(i, s[i]);
-		i++;
-	}
+	dest_len = ft_strlen(dest);
+	src_len = ft_strlen(src);
+	if (dest_len >= size || size == 0)
+		return (src_len + size);
+	if (dest_len > size)
+		result = size + src_len;
+	else
+		result = dest_len + src_len;
+	src_len = 0;
+	while (dest_len < size - 1 && src[src_len] != '\0')
+		dest[dest_len++] = src[src_len++];
+	dest[dest_len] = '\0';
 	return (result);
 }

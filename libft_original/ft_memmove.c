@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/24 10:05:14 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/24 10:06:15 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/24 10:55:54 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/24 10:55:55 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+void	*ft_memmove(void *dest, const void *src, size_t len)
 {
-	unsigned int	i;
-	char			*result;
+	unsigned char	*dest_buffer;
+	unsigned char	*src_buffer;
 
-	i = 0;
-	if (!s)
-		return (ft_strdup(""));
-	else if (!f)
-		return (ft_strdup(s));
-	result = ft_strdup(s);
-	if (!result)
+	if (!dest && !src)
 		return (NULL);
-	while (s[i] != '\0')
+	dest_buffer = (unsigned char *)dest;
+	src_buffer = (unsigned char *)src;
+	if (dest_buffer < src_buffer)
 	{
-		result[i] = (*f)(i, s[i]);
-		i++;
+		while (len--)
+			*(dest_buffer++) = *(src_buffer++);
 	}
-	return (result);
+	else if (dest_buffer > src_buffer)
+	{
+		while (len--)
+			dest_buffer[len] = src_buffer[len];
+	}
+	return (dest);
 }
