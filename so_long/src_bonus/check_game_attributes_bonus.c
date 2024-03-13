@@ -21,12 +21,12 @@ void	check_attributes(t_window *window, char *buffer)
 		wall_check(window, window->length, window->height) == 3)
 	{
 		free(buffer);
-		if (1)
-			handle_error(3, "Wrong token count!", window);
-		else if (2)
+		if (rectangle_check(window, window->height))
 			handle_error(3, "Map not rectangular!", window);
-		else
+		else if (wall_check(window, window->length, window->height))
 			handle_error(3, "Map not fully surrounded by walls!", window);
+		else if (token_check(window))
+			handle_error(3, "Wrong token count!", window);
 	}
 	player_pos(window);
 	tempbuf = ft_split(buffer, '\n');

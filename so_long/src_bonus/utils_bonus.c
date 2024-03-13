@@ -70,7 +70,7 @@ void	handle_error(int err_no, char *err_msg, t_window *window)
 
 void	handle_exit(int fd, t_window *window)
 {
-	if (window->map_array)
+	if (window && window->map_array)
 		free_array(window->map_array);
 	if (fd == 1)
 		ft_printf("You win!\n");

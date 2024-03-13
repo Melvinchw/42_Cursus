@@ -6,7 +6,7 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 23:21:23 by mchua             #+#    #+#             */
-/*   Updated: 2024/02/28 23:21:27 by mchua            ###   ########.fr       */
+/*   Updated: 2024/03/13 21:47:24 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "pipex.h"
@@ -27,7 +27,7 @@ char	*pathfinder(char *cmd, char **envp)
 	i = 0;
 	while (allpath[i])
 	{
-		partial_path = ft_strjoin(*allpath, "/");
+		partial_path = ft_strjoin(allpath[i], "/");
 		final_path = ft_strjoin(partial_path, cmd);
 		free(partial_path);
 		if (!final_path)

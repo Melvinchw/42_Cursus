@@ -75,8 +75,7 @@ int	token_check(t_window *window)
 		}
 		y++;
 	}
-	if (window->map.player != 1 \
-		|| window->map.exit != 1 || window->map.coins < 1)
+	if (window->map.player != 1 || window->map.exit != 1 || !window->map.coins)
 		return (1);
 	return (0);
 }

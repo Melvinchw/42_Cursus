@@ -103,18 +103,16 @@ void	check_attributes(t_window *window, char *buffer)
 	char	**tempbuf;
 
 	initialize_map(window);
-	rectangle_check(window, window->height);
-	wall_check(window, window->length, window->height);
 	if (token_check(window) == 1 || rectangle_check(window, window->height) == 2
 		|| wall_check(window, window->length, window->height) == 3)
 	{
 		free(buffer);
-		if (1)
-			handle_error(3, "Wrong Token Count!", window);
-		else if (2)
-			handle_error(3, "Map not rectangular!", window);
-		else
+		if (wall_check(window, window->length, window->height))
 			handle_error(3, "Map not surrounded by walls!", window);
+		else if (rectangle_check(window, window->height))
+			handle_error(3, "Map not rectangular!", window);
+		else if (token_check(window))
+			handle_error(3, "Wrong Token Count!", window);
 	}
 	player_pos(window);
 	tempbuf = ft_split(buffer, '\n');

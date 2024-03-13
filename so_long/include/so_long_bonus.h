@@ -35,8 +35,8 @@
 # define MOVE_DOWN 1
 # define MOVE_LEFT 2
 # define MOVE_RIGHT 3
-# define EN_MOVEMENT 10000
-# define ANIMATION_COUNTER 5000
+# define EN_MOVEMENT 8000
+# define ANIMATION_COUNTER 3000
 # define LIMIT 50
 
 //Process event handler
