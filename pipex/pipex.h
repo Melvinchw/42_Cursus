@@ -20,6 +20,9 @@
 # include <sys/wait.h>
 # include "./libft/libft.h"
 
+//main.c
+void	start_pipe(char **argv, char **envp);
+
 //process.c
 void	child_process(char **argv, char **envp, int *fd);
 void	parent_process(char **argv, char **envp, int *fd);
