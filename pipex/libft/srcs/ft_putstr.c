@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchua <mchua@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/28 23:21:39 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/08 21:14:28 by mchua            ###   ########.fr       */
+/*   Created: 2023/09/27 20:18:29 by mchua             #+#    #+#             */
+/*   Updated: 2023/09/27 20:18:30 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "pipex.h"
+#include "libft.h"
 
-void	error(void)
+int	ft_putstr(char *str)
 {
-	perror("Error executing,goodbye bitch\n Error: ");
-	exit(1);
-}
+	int	count;
 
-void	free_array(char **array)
-{
-	int	i;
-
-	i = -1;
-	while (array[++i])
-		free(array[i]);
-	free(array);
+	count = 0;
+	if (!str)
+	{
+		write (1, "(null)", 6);
+		return (6);
+	}
+	while (*str != '\0')
+	{
+		count += ft_putchar(*str);
+		str++;
+	}
+	return (count);
 }

@@ -6,7 +6,7 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:42:54 by mchua             #+#    #+#             */
-/*   Updated: 2023/09/28 21:41:11 by mchua            ###   ########.fr       */
+/*   Updated: 2024/01/25 20:57:41 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef LIBFT_H
@@ -15,6 +15,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdarg.h>
 
 typedef struct s_list
 {
@@ -34,6 +35,13 @@ int		ft_strlen(const char *str);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strlcpy(char *dst, const char *src, size_t size);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
+int		ft_printf(const char *format, ...);
+int		ft_putchar(char c);
+int		ft_puthex(unsigned int n, char c);
+int		ft_putnbr(int n);
+int		ft_putstr(char *str);
+int		ft_putunsigned(unsigned int n);
+int		ft_putvoid(void *n);
 int		ft_lstsize(t_list *lst);
 char	*ft_itoa(int n);
 char	*ft_strchr(const char *str, int c);

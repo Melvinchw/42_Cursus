@@ -11,6 +11,16 @@
 /* ************************************************************************** */
 #include "pipex.h"
 
+char	**getpath(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (ft_strnstr(envp[i], "PATH", 4) == 0)
+		i++;
+	return (ft_split(envp[i] + 5, ':'));
+}
+
 char	*pathfinder(char *cmd, char **envp)
 {
 	char	**allpath;
@@ -19,22 +29,20 @@ char	*pathfinder(char *cmd, char **envp)
 	int		i;
 
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
-		i++;
-	allpath = ft_split(envp[i] + 5, ':');
+	allpath = getpath(envp);
 	if (!allpath)
 		return (NULL);
-	while (*allpath)
+	while (allpath[i])
 	{
-		partial_path = ft_strjoin(*allpath, "/");
+		partial_path = ft_strjoin(allpath[i], "/");
 		final_path = ft_strjoin(partial_path, cmd);
 		free(partial_path);
 		if (!final_path)
 			free(final_path);
-		if (access(final_path, F_OK) == 0)
+		if (access(final_path, X_OK) == 0)
 			return (final_path);
 		free (final_path);
-		allpath++;
+		i++;
 	}
 	free_array(allpath);
 	return (NULL);

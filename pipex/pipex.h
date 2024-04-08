@@ -32,6 +32,7 @@ void	error(void);
 void	free_array(char **array);
 
 //commands.c
+char	**getpath(char **envp);
 char	*pathfinder(char *cmd, char **envp);
 void	execute_cmd(char *argv, char **envp);
 #endif
