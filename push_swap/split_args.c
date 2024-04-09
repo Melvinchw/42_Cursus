@@ -14,7 +14,7 @@
 void	check_null(void *ptr)
 {
 	if (ptr == NULL)
-		handle_error(2, "Memory allocation error");
+		handle_error(2, "Memory allocation error", NULL);
 	else
 		return ;
 }
@@ -38,7 +38,7 @@ int	count_words(char *str, char sep)
 		str++;
 	}
 	if (!i)
-		handle_error(1, "Invalid word count");
+		handle_error(1, "Invalid word count", NULL);
 	return (i);
 }
 

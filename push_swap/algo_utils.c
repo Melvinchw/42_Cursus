@@ -11,42 +11,19 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	rotate_both(t_node *stack_a, t_node *stack_b, t_node *cheapest_node)
+int	find_stack_length(t_node **stack)
 {
-	while (stack_a != stack_b->target && stack_b != cheapest_node)
-		r_both(stack_a, stack_b);
-	find_current_pos(*stack_a);
-	find_current_pos(*stack_b);
-}
+	int		i;
+	t_node	*ref;
 
-void	reverse_rotate_both(t_node *stack_a, t_node *stack_b,
-							t_node *cheapest_node)
-{
-	while (stack_a != stack_b->target && stack_b != cheapest_node)
-		rr_both(stack_a, stack_b);
-	find_current_pos(*stack_a);
-	find_current_pos(*stack_b);
-}
-
-void	continue_rotate(t_node **stack, t_node *node_on_top, char c)
-{
-	while (*stack != node_on_top)
+	ref = *stack;
+	i = 0;
+	while (ref)
 	{
-		if (c == 'a')
-		{
-			if (node_on_top->below_mid)
-				rra(stack);
-			else
-				ra(stack);
-		}
-		else if (c == 'b')
-		{
-			if (node_on_top->below_mid)
-				rra(stack);
-			else
-				ra(stack);
-		}
+		i++;
+		ref = (ref)->next;
 	}
+	return (i);
 }
 
 t_node	*find_min_node(t_node *stack)
@@ -56,7 +33,7 @@ t_node	*find_min_node(t_node *stack)
 
 	min_num = LONG_MAX;
 	if (stack == NULL)
-		return ;
+		return (NULL);
 	while (stack)
 	{
 		if (stack->data < min_num)
@@ -69,18 +46,20 @@ t_node	*find_min_node(t_node *stack)
 	return (min_node);
 }
 
-long	find_max_num(t_node *stack)
+long	find_max_num(t_node **stack)
 {
 	long	max_num;
+	t_node	*ref;
 
+	ref = *stack;
 	max_num = LONG_MIN;
-	if (stack == NULL)
-		return ;
-	while (stack)
+	if (ref == NULL)
+		return (-1);
+	while (ref)
 	{
-		if (stack->data > max_num)
-			max_num = stack->data;
-		stack = stack->next;
+		if (ref->data > max_num)
+			max_num = (ref)->data;
+		ref = ref->next;
 	}
 	return (max_num);
 }

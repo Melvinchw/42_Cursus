@@ -11,35 +11,35 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	rotate(t_node *stack)
+void	rotate(t_node **stack)
 {
 	t_node	*tail;
 	t_node	*head;
 
-	if (stack == NULL || stack->next == NULL)
+	if (*stack == NULL || (*stack)->next == NULL)
 		return ;
 	tail = stack_tail(stack);
-	head = stack->next;
-	tail->next = stack;
-	stack->next = NULL;
-	stack->prev = tail;
-	stack = head;
-	stack->prev = NULL;
+	head = (*stack)->next;
+	tail->next = *stack;
+	(*stack)->next = NULL;
+	(*stack)->prev = tail;
+	*stack = head;
+	(*stack)->prev = NULL;
 }
 
-void	ra(t_node *stack_a)
+void	ra(t_node **stack_a)
 {
 	rotate(stack_a);
 	ft_printf("ra\n");
 }
 
-void	rb(t_node *stack_b)
+void	rb(t_node **stack_b)
 {
 	rotate(stack_b);
 	ft_printf("rb\n");
 }
 
-void	r_both(t_node *stack_a, t_node *stack_b)
+void	r_both(t_node **stack_a, t_node **stack_b)
 {
 	rotate(stack_a);
 	rotate(stack_b);

@@ -35,14 +35,17 @@ bool	correct_input(char *argv)
 
 bool	is_duplicate(t_node *stack_a, int argv)
 {
-	if (!stack_a)
+	t_node	*ref;
+
+	ref = stack_a;
+	if (!ref)
 		return (false);
-	while (stack_a->next != NULL)
+	while (ref->next != NULL)
 	{
-		if (argv == stack_a->data)
+		if (argv == ref->data)
 			return (true);
 		else
-			stack_a = stack_a->next;
+			ref = ref->next;
 	}
 	return (false);
 }
@@ -78,14 +81,14 @@ bool	in_order(t_node *stack_a)
 
 	if (!stack_a)
 		return (false);
-	num = stack_a->data;
-	stack_a = stack_a->next;
+	num = (stack_a)->data;
+	stack_a = (stack_a)->next;
 	while (stack_a)
 	{
-		if (num > stack_a->data)
+		if (num > (stack_a)->data)
 			return (false);
-		num = stack_a->data;
-		stack_a = stack_a->next;
+		num = (stack_a)->data;
+		stack_a = (stack_a)->next;
 	}
 	return (true);
 }

@@ -11,67 +11,53 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	pb(t_node *stack_a, t_node *stack_b)
+void	push(t_node **src, t_node **dst)
 {
-	t_node	*ref;
-	t_node	*new_b;
+	t_node	*push_node;
 
-	if (stack_a == NULL)
+	if (*src == NULL)
 		return ;
-	ref = stack_a;
-	stack_a = ref->next;
-	if (stack_b == NULL)
+	push_node = *src;
+	*src = (*src)->next;
+	if (*src != NULL)
+		(*src)->prev = NULL;
+	push_node->prev = NULL;
+	if (*dst == NULL)
 	{
-		stack_b = ref;
-		stack_b->next = NULL;
+		*dst = push_node;
+		push_node->next = NULL;
 	}
 	else
 	{
-		new_b = ref;
-		stack_b->prev = new_b;
-		new_b->next = stack_b;
-		stack_b = new_b;
+		push_node->next = *dst;
+		push_node->next->prev = push_node;
+		*dst = push_node;
 	}
-	stack_a->prev = NULL;
-	stack_b->prev = NULL;
 }
 
-void	pa(t_node *stack_a, t_node *stack_b)
+void	pb(t_node **stack_a, t_node **stack_b)
 {
-	t_node	*ref;
-	t_node	*new_a;
-
-	if (stack_b == NULL)
-		return ;
-	ref = stack_b;
-	stack_b = ref->next;
-	if (stack_a == NULL)
-	{
-		stack_a = ref;
-		stack_b->next = NULL;
-	}
-	else
-	{
-		new_a = ref;
-		stack_a->prev = new_a;
-		new_a->next = stack_a;
-		stack_a = new_a;
-	}
-	stack_a->prev = NULL;
-	stack_b->prev = NULL;
+	push(stack_a, stack_b);
+	ft_printf("pb\n");
 }
 
-int	count_stack(t_node *stack)
+void	pa(t_node **stack_b, t_node **stack_a)
+{
+	push(stack_b, stack_a);
+	ft_printf("pa\n");
+}
+
+int	count_stack(t_node **stack)
 {
 	int	i;
 
 	i = 0;
-	if (stack == NULL)
+	if (*stack == NULL)
 		return (i);
-	while (stack)
+	while (*stack)
 	{
 		i++;
-		stack = stack->next;
+		*stack = (*stack)->next;
 	}
 	return (i);
 }

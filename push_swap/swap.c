@@ -11,35 +11,38 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	swap(t_node *stack)
+void	swap(t_node **stack)
 {
 	t_node	*ref;
 	int		stack_size;
 
-	stack_size = count_stack(stack);
-	if (stack == NULL || stack < 2)
+	ref = *stack;
+	stack_size = count_stack(&ref);
+	if (*stack == NULL || stack_size < 2)
 		return ;
-	ref = stack->next;
-	stack->next = stack->next->next;
-	stack->prev = ref;
+	ref = (*stack)->next;
+	(*stack)->next = (*stack)->next->next;
+	ref->next = (*stack);
+	ref->next->prev = ref;
+	ref->next->next->prev = (*stack);
+	ref->next->next->next = NULL;
 	ref->prev = NULL;
-	ref->next = stack->prev;
-	stack = ref;
+	*stack = ref;
 }
 
-void	sa(t_node *stack_a)
+void	sa(t_node **stack_a)
 {
 	swap(stack_a);
 	ft_printf("sa\n");
 }
 
-void	sb(t_node *stack_b)
+void	sb(t_node **stack_b)
 {
 	swap(stack_b);
 	ft_printf("sb\n");
 }
 
-void	s_both(t_node *stack_a, t_node *stack_b)
+void	s_both(t_node **stack_a, t_node **stack_b)
 {
 	swap(stack_a);
 	swap(stack_b);

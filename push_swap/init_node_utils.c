@@ -11,21 +11,23 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	find_current_pos(t_node *stack)
+void	find_current_pos(t_node **stack)
 {
-	int	i;
-	int	midpoint;
+	int		i;
+	int		midpoint;
+	t_node	*ref;
 
+	ref = *stack;
 	i = 0;
 	midpoint = find_stack_length(stack) / 2;
-	while (stack)
+	while (ref)
 	{
-		stack->current_pos = i;
+		(*stack)->current_pos = i;
 		if (i > midpoint)
-			stack->below_mid = true;
+			(*stack)->below_mid = true;
 		else
-			stack->below_mid = false;
-		stack->next;
+			(*stack)->below_mid = false;
+		ref = ref->next;
 		i++;
 	}
 }
@@ -53,7 +55,7 @@ void	find_target(t_node *stack_a, t_node *stack_b)
 		if (best_target != LONG_MAX)
 			stack_b->target = target_node;
 		else
-			stack_b->target = find_min_node(stack_a);
+			(stack_b)->target = find_min_node(stack_a);
 		stack_b = stack_b->next;
 	}
 }
@@ -63,8 +65,8 @@ void	find_price(t_node *stack_a, t_node *stack_b)
 	int	stack_a_len;
 	int	stack_b_len;
 
-	stack_a_len = find_stack_length(stack_a);
-	stack_b_len = find_stack_length(stack_b);
+	stack_a_len = find_stack_length(&stack_a);
+	stack_b_len = find_stack_length(&stack_b);
 	while (stack_b)
 	{
 		if (stack_b->below_mid)
@@ -75,10 +77,11 @@ void	find_price(t_node *stack_a, t_node *stack_b)
 			stack_b->cost += stack_a_len - stack_b->target->current_pos;
 		else
 			stack_b->cost += stack_b->target->current_pos;
+		stack_b = stack_b->next;
 	}
 }
 
-void	find_cheapest(t_node *stack_a, t_node *stack_b)
+void	find_cheapest(t_node *stack_b)
 {
 	long	best_price;
 	t_node	*best_node;
@@ -105,8 +108,9 @@ t_node	*get_cheapest_node(t_node *stack_b)
 	ref_node = stack_b;
 	while (ref_node)
 	{
-		if (stack_b->cheapest)
+		if (ref_node->cheapest)
 			return (ref_node);
 		ref_node = ref_node->next;
 	}
+	return (NULL);
 }

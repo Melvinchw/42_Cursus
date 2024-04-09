@@ -3,21 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   handle_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchua <mchua@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:58:18 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/08 20:59:28 by mchua            ###   ########.fr       */
+/*   Updated: 2024/04/09 22:00:19 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
-
-void	handle_error(int i, char *str, char **argv)
-{
-	ft_printf("%s", str);
-	if (i == 2)
-		free_array(argv);
-	exit (1);
-}
 
 void	free_array(char **argv)
 {
@@ -32,16 +24,10 @@ void	free_array(char **argv)
 	free (argv);
 }
 
-void	free_stack(t_node *stack)
+void	handle_error(int i, char *str, char **argv)
 {
-	t_node	*ref;
-
-	ref = stack;
-	while (ref)
-	{
-		ref = stack->next;
-		free (stack);
-	}
-	free (stack);
+	ft_printf("%s", str);
+	if (i == 2)
+		free_array(argv);
 	exit (1);
 }
