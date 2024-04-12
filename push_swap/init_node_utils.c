@@ -70,11 +70,11 @@ void	find_price(t_node *stack_a, t_node *stack_b)
 	while (stack_b)
 	{
 		if (stack_b->below_mid)
-			stack_b->cost = stack_b_len - stack_b->current_pos;
+			stack_b->cost = stack_b_len - (stack_b->current_pos);
 		else
 			stack_b->cost = stack_b->current_pos;
 		if (stack_b->target->below_mid)
-			stack_b->cost += stack_a_len - stack_b->target->current_pos;
+			stack_b->cost += stack_a_len - (stack_b->target->current_pos);
 		else
 			stack_b->cost += stack_b->target->current_pos;
 		stack_b = stack_b->next;

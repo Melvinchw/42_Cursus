@@ -2,5 +2,6 @@
 	"files.autoSave": "onWindowChange",
 	"files.associations": {
 		"push_swap.h": "c"
-	}
+	},
+	"cmake.configureOnOpen": false
 }

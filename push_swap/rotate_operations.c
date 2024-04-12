@@ -6,26 +6,26 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 10:10:02 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/09 13:44:29 by mchua            ###   ########.fr       */
+/*   Updated: 2024/04/12 22:10:28 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
 
 void	rotate_both(t_node **stack_a, t_node **stack_b, t_node *cheapest_node)
 {
-	while (*stack_a != (*stack_b)->target && *stack_b != cheapest_node)
+	while (*stack_a != cheapest_node->target && *stack_b != cheapest_node)
 		r_both(stack_a, stack_b);
-	find_current_pos(stack_a);
-	find_current_pos(stack_b);
+	//find_current_pos(stack_a);
+	//find_current_pos(stack_b);
 }
 
 void	reverse_rotate_both(t_node **stack_a, t_node **stack_b,
 							t_node *cheapest_node)
 {
-	while (*stack_a != (*stack_b)->target && *stack_b != cheapest_node)
+	while (*stack_a != cheapest_node->target && *stack_b != cheapest_node)
 		rr_both(stack_a, stack_b);
-	find_current_pos(stack_a);
-	find_current_pos(stack_b);
+	//find_current_pos(stack_a);
+	//find_current_pos(stack_b);
 }
 
 void	continue_rotate(t_node **stack, t_node *node_on_top, char c)
@@ -42,9 +42,9 @@ void	continue_rotate(t_node **stack, t_node *node_on_top, char c)
 		else if (c == 'b')
 		{
 			if (node_on_top->below_mid)
-				rra(stack);
+				rrb(stack);
 			else
-				ra(stack);
+				rb(stack);
 		}
 	}
 }

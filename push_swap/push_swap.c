@@ -11,28 +11,27 @@
 /* ************************************************************************** */
 #include "push_swap.h"
 
-void	print_stack(t_node *stack_a, t_node *original)
+/*void	print_stack(t_node *stack_a, t_node *original, char c)
 {
 	ft_printf("Original Stack\n");
-	while (original)
+	while (c == 'o')
 	{
 		ft_printf("%d ", original->data);
 		original = original->next;
 	}
 	ft_printf("\nSorted Stack\n");
-	while (stack_a)
+	while (c == 'f')
 	{
 		ft_printf("%d ", stack_a->data);
 		stack_a = stack_a->next;
 	}
 	ft_printf("\n");
-}
+}*/
 
 int	main(int argc, char **argv)
 {
 	t_node	*stack_a;
 	t_node	*stack_b;
-	t_node	*original;
 
 	stack_a = NULL;
 	stack_b = NULL;
@@ -45,10 +44,10 @@ int	main(int argc, char **argv)
 			handle_error(1, "Invalid Arguments\n", NULL);
 	}
 	stack_init(&stack_a, argv + 1);
-	original = stack_a;
+	//print_stack(stack_a, stack_a, 'o');
 	if (!in_order(stack_a))
 		push_swap(&stack_a, &stack_b);
-	print_stack(stack_a, original);
+	//print_stack(stack_a, stack_a, 'f');
 	free(stack_a);
 	return (0);
 }

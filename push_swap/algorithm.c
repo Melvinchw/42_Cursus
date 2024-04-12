@@ -54,7 +54,7 @@ void	perform_move(t_node **stack_a, t_node **stack_b)
 	t_node	*cheapest_node;
 
 	cheapest_node = get_cheapest_node(*stack_b);
-	if (!cheapest_node->below_mid && !cheapest_node->target->below_mid)
+	if (!(cheapest_node->below_mid) && !(cheapest_node->target->below_mid))
 		rotate_both(stack_a, stack_b, cheapest_node);
 	else if (cheapest_node->below_mid && cheapest_node->target->below_mid)
 		reverse_rotate_both(stack_a, stack_b, cheapest_node);
@@ -65,29 +65,22 @@ void	perform_move(t_node **stack_a, t_node **stack_b)
 
 void	push_swap(t_node **stack_a, t_node **stack_b)
 {
-	int		length;
-	t_node	*min_node;
-
-	length = find_stack_length(stack_a);
-	if (length == 5)
+	if (find_stack_length(stack_a) == 5)
 		sort_five(stack_a, stack_b);
 	else
-	{
-		while (length-- > 3)
+		while (find_stack_length(stack_a) > 3)
 			pb(stack_a, stack_b);
-	}
 	sort_three(stack_a);
 	while (*stack_b)
 	{
 		initialize_node(stack_a, stack_b);
 		perform_move(stack_a, stack_b);
 	}
-	find_current_pos(stack_a);
-	min_node = find_min_node(*stack_a);
-	if (min_node->below_mid)
-		while (*stack_a != min_node)
+	//find_current_pos(stack_a);
+	if (find_min_node(*stack_a)->below_mid)
+		while (*stack_a != find_min_node(*stack_a))
 			rra(stack_a);
 	else
-		while (*stack_a != min_node)
+		while (*stack_a != find_min_node(*stack_a))
 			ra(stack_a);
 }
