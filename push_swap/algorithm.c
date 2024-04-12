@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchua <mchua@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 20:29:08 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/08 20:29:08 by mchua            ###   ########.fr       */
+/*   Created: 2024/04/13 03:34:39 by mchua             #+#    #+#             */
+/*   Updated: 2024/04/13 03:34:39 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -65,6 +65,11 @@ void	perform_move(t_node **stack_a, t_node **stack_b)
 
 void	push_swap(t_node **stack_a, t_node **stack_b)
 {
+	if (find_stack_length(stack_a) == 2)
+	{
+		sa(stack_a);
+		return ;
+	}
 	if (find_stack_length(stack_a) == 5)
 		sort_five(stack_a, stack_b);
 	else
@@ -76,7 +81,7 @@ void	push_swap(t_node **stack_a, t_node **stack_b)
 		initialize_node(stack_a, stack_b);
 		perform_move(stack_a, stack_b);
 	}
-	//find_current_pos(stack_a);
+	find_current_pos(stack_a);
 	if (find_min_node(*stack_a)->below_mid)
 		while (*stack_a != find_min_node(*stack_a))
 			rra(stack_a);

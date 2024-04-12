@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchua <mchua@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 20:52:04 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/08 20:52:04 by mchua            ###   ########.fr       */
+/*   Created: 2024/04/13 03:35:51 by mchua             #+#    #+#             */
+/*   Updated: 2024/04/13 03:35:51 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -16,17 +16,20 @@ void	swap(t_node **stack)
 	t_node	*ref;
 	int		stack_size;
 
-	ref = *stack;
-	stack_size = count_stack(&ref);
+	stack_size = find_stack_length(stack);
 	if (*stack == NULL || stack_size < 2)
 		return ;
 	ref = (*stack)->next;
-	(*stack)->next = (*stack)->next->next;
-	ref->next = (*stack);
-	ref->next->prev = ref;
-	ref->next->next->prev = (*stack);
-	ref->next->next->next = NULL;
+	if (stack_size == 2)
+		(*stack)->next = NULL;
+	else
+	{
+		ref->next->prev = *stack;
+		(*stack)->next = (*stack)->next->next;
+	}
+	(*stack)->prev = ref;
 	ref->prev = NULL;
+	ref->next = *stack;
 	*stack = ref;
 }
 

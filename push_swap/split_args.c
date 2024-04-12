@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchua <mchua@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 20:46:30 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/08 20:46:30 by mchua            ###   ########.fr       */
+/*   Created: 2024/04/13 03:37:17 by mchua             #+#    #+#             */
+/*   Updated: 2024/04/13 03:37:17 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -28,14 +28,18 @@ int	count_words(char *str, char sep)
 	i = 0;
 	while (*str)
 	{
-		if (*str == sep)
-			flag = false;
-		else if (!flag)
+		flag = false;
+		while (*str == sep && str)
+			str++;
+		while (*str != sep && *str)
 		{
-			i++;
-			flag = true;
+			if (!flag)
+			{
+				i++;
+				flag = true;
+			}
+			str++;
 		}
-		str++;
 	}
 	if (!i)
 		handle_error(1, "Invalid word count", NULL);

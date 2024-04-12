@@ -3,30 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchua <mchua@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 20:55:14 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/08 20:55:14 by mchua            ###   ########.fr       */
+/*   Created: 2024/04/13 03:33:38 by mchua             #+#    #+#             */
+/*   Updated: 2024/04/13 03:33:38 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
 
-/*void	print_stack(t_node *stack_a, t_node *original, char c)
+void	print_stack(t_node *stack_a)
 {
-	ft_printf("Original Stack\n");
-	while (c == 'o')
-	{
-		ft_printf("%d ", original->data);
-		original = original->next;
-	}
-	ft_printf("\nSorted Stack\n");
-	while (c == 'f')
+	ft_printf("Final Stack\n");
+	while (stack_a)
 	{
 		ft_printf("%d ", stack_a->data);
 		stack_a = stack_a->next;
 	}
 	ft_printf("\n");
-}*/
+}
 
 int	main(int argc, char **argv)
 {
@@ -44,10 +38,9 @@ int	main(int argc, char **argv)
 			handle_error(1, "Invalid Arguments\n", NULL);
 	}
 	stack_init(&stack_a, argv + 1);
-	//print_stack(stack_a, stack_a, 'o');
 	if (!in_order(stack_a))
 		push_swap(&stack_a, &stack_b);
-	//print_stack(stack_a, stack_a, 'f');
+	print_stack(stack_a);
 	free(stack_a);
 	return (0);
 }

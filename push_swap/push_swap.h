@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchua <mchua@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 20:37:28 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/08 20:37:28 by mchua            ###   ########.fr       */
+/*   Created: 2024/04/13 03:35:15 by mchua             #+#    #+#             */
+/*   Updated: 2024/04/13 03:35:15 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PUSH_SWAP_H
@@ -54,7 +54,6 @@ t_node	*get_cheapest_node(t_node *stack_b);
 void	push(t_node **src, t_node **dst);
 void	pb(t_node **stack_a, t_node **stack_b);
 void	pa(t_node **stack_b, t_node **stack_a);
-int		count_stack(t_node **stack);
 
 //reverse_rotate.c
 void	reverse_rotate(t_node **stack);

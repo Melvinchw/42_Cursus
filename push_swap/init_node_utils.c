@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_node_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchua <mchua@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 20:53:03 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/08 20:53:03 by mchua            ###   ########.fr       */
+/*   Created: 2024/04/13 03:34:55 by mchua             #+#    #+#             */
+/*   Updated: 2024/04/13 03:34:55 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -22,11 +22,11 @@ void	find_current_pos(t_node **stack)
 	midpoint = find_stack_length(stack) / 2;
 	while (ref)
 	{
-		(*stack)->current_pos = i;
+		(ref)->current_pos = i;
 		if (i > midpoint)
-			(*stack)->below_mid = true;
+			ref->below_mid = true;
 		else
-			(*stack)->below_mid = false;
+			ref->below_mid = false;
 		ref = ref->next;
 		i++;
 	}
@@ -40,6 +40,7 @@ void	find_target(t_node *stack_a, t_node *stack_b)
 
 	while (stack_b)
 	{
+		target_node = NULL;
 		best_target = LONG_MAX;
 		current_stack_a = stack_a;
 		while (current_stack_a)
