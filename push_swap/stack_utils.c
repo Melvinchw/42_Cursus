@@ -55,14 +55,15 @@ void	stack_init(t_node **stack_a, char **argv)
 	while (argv[i])
 	{
 		if (!correct_input(argv[i]))
-			handle_error(2, "Incorrect inputs!\n", argv);
+			handle_error(1, "Incorrect inputs!\n", argv);
 		nbr = convert_number(argv[i]);
 		if (nbr < INT_MIN || nbr > INT_MAX)
-			handle_error(2, "Values out of range!\n", argv);
+			handle_error(1, "Values out of range!\n", argv);
 		if (is_duplicate(*stack_a, nbr))
 		{
-			handle_error(2, "Duplicates found!\n", argv);
-			free(stack_a);
+			handle_error(1, "Duplicates found!\n", argv);
+			if (stack_a)
+				free_stack(stack_a);
 		}
 		add_stack(stack_a, nbr, NULL);
 		i++;

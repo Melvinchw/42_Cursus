@@ -99,5 +99,5 @@ bool	in_order(t_node *stack_a);
 //handle_error
 void	free_array(char **argv);
 void	handle_error(int i, char *str, char **argv);
-
+void	free_stack(t_node **stack);
 #endif

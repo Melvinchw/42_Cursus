@@ -40,7 +40,7 @@ bool	is_duplicate(t_node *stack_a, int argv)
 	ref = stack_a;
 	if (!ref)
 		return (false);
-	while (ref->next != NULL)
+	while (ref != NULL)
 	{
 		if (argv == ref->data)
 			return (true);
