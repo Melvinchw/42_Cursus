@@ -16,8 +16,6 @@ bool	correct_input(char *argv)
 	int	i;
 
 	i = 1;
-	if (ft_strlen(argv) == 0 || ft_strlen(argv) > 11)
-		return (false);
 	if (*argv != '-' && *argv != '+')
 	{
 		if (!ft_isdigit(*argv))
@@ -53,7 +51,7 @@ bool	is_duplicate(t_node *stack_a, int argv)
 long	convert_number(char *argv)
 {
 	int	i;
-	int	value;
+	long	value;
 	int	sign;
 
 	i = 0;

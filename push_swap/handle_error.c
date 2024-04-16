@@ -6,7 +6,7 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 20:58:18 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/14 21:43:46 by mchua            ###   ########.fr       */
+/*   Updated: 2024/04/16 14:56:20 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -16,30 +16,33 @@ void	free_array(char **argv)
 	int	i;
 
 	i = 0;
-	while (argv[i])
+	while (argv[i] != NULL)
 	{
 		free(argv[i]);
 		i++;
 	}
-	free (argv);
+	free(argv - 1);
 }
 
-void	handle_error(int i, char *str, char **argv)
+void	handle_error(t_node **stack, char *str, char **argv, int arg_flag)
 {
 	ft_printf("%s", str);
-	if (i == 2 && argv != NULL)
+	if (stack)
+		free_stack(stack);
+	if (argv != NULL && arg_flag == 2)
 		free_array(argv);
-	exit (1);
+	exit(1);
 }
 
 void	free_stack(t_node **stack)
 {
-	t_node **ref;
+	t_node *ref;
 
-	ref = stack;
+	ref = *stack;
 	while (ref)
 	{
-		free (stack);
-		*ref = (*ref)->next;
+		*stack = ((*stack)->next);
+		free (ref);
+		ref = *stack;
 	}
 }

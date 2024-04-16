@@ -23,14 +23,14 @@ t_node	*stack_tail(t_node **stack_a)
 	return (tail);
 }
 
-void	add_stack(t_node **stack_a, int nbr, char **argv)
+void	add_stack(t_node **stack_a, int nbr, char **argv, int arg_flag)
 {
 	t_node	*new_stack;
 	t_node	*ref;
 
 	new_stack = calloc(1, sizeof(t_node));
 	if (!new_stack)
-		handle_error(3, "Unable to allocate memory for stack!", argv);
+		handle_error(NULL, "Unable to allocate memory for stack!", argv, arg_flag);
 	new_stack->data = nbr;
 	new_stack->next = NULL;
 	if (*stack_a == NULL)
@@ -46,7 +46,7 @@ void	add_stack(t_node **stack_a, int nbr, char **argv)
 	}
 }
 
-void	stack_init(t_node **stack_a, char **argv)
+void	stack_init(t_node **stack_a, char **argv, int arg_flag)
 {
 	int		i;
 	long	nbr;
@@ -55,17 +55,15 @@ void	stack_init(t_node **stack_a, char **argv)
 	while (argv[i])
 	{
 		if (!correct_input(argv[i]))
-			handle_error(1, "Incorrect inputs!\n", argv);
+			handle_error(stack_a, "Incorrect inputs!\n", argv, arg_flag);
 		nbr = convert_number(argv[i]);
 		if (nbr < INT_MIN || nbr > INT_MAX)
-			handle_error(1, "Values out of range!\n", argv);
+			handle_error(stack_a, "Values out of range!\n", argv, arg_flag);
 		if (is_duplicate(*stack_a, nbr))
-		{
-			handle_error(1, "Duplicates found!\n", argv);
-			if (stack_a)
-				free_stack(stack_a);
-		}
-		add_stack(stack_a, nbr, NULL);
+			handle_error(stack_a, "Duplicates found!\n", argv, arg_flag);
+		add_stack(stack_a, nbr, NULL, arg_flag);
 		i++;
 	}
+	if (arg_flag == 2)
+		free_array(argv);
 }

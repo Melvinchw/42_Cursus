@@ -87,8 +87,8 @@ char	**split_args(char *str, char sep);
 
 //stack_utils.c
 t_node	*stack_tail(t_node **stack_a);
-void	add_stack(t_node **stack_a, int nbr, char **argv);
-void	stack_init(t_node **stack_a, char **argv);
+void	add_stack(t_node **stack_a, int nbr, char **argv, int arg_flag);
+void	stack_init(t_node **stack_a, char **argv, int arg_flag);
 
 //check_utils.c
 bool	correct_input(char *argv);
@@ -98,6 +98,6 @@ bool	in_order(t_node *stack_a);
 
 //handle_error
 void	free_array(char **argv);
-void	handle_error(int i, char *str, char **argv);
+void	handle_error(t_node **stack, char *str, char **argv, int arg_flag);
 void	free_stack(t_node **stack);
 #endif

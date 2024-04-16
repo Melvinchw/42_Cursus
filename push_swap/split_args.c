@@ -14,7 +14,7 @@
 void	check_null(void *ptr)
 {
 	if (ptr == NULL)
-		handle_error(2, "Memory allocation error", NULL);
+		handle_error(NULL, "Memory allocation error", NULL, 0);
 	else
 		return ;
 }
@@ -42,7 +42,7 @@ int	count_words(char *str, char sep)
 		}
 	}
 	if (!i)
-		handle_error(1, "Invalid word count", NULL);
+		handle_error(NULL, "Invalid word count", NULL, 0);
 	return (i);
 }
 
@@ -57,7 +57,7 @@ char	*next_word(char *str, char sep)
 			counter++;
 		while (str[counter + i] != sep && str[counter + i] != '\0')
 			i++;
-	word = ft_calloc(i + 1, sizeof(char));
+	word = malloc(i * sizeof(char) + 1);
 	check_null(word);
 	i = 0;
 	while ((str[counter] != '\0') && (str[counter] != sep))
@@ -77,7 +77,7 @@ char	**split_args(char *str, char sep)
 	char	**args;
 
 	count = count_words(str, sep);
-	args = malloc((count +1) * sizeof(char *));
+	args = malloc((count + 2) * sizeof(char *));
 	check_null(args);
 	args[0] = '\0';
 	i = 1;
