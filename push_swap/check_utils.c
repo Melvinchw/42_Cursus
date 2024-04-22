@@ -6,7 +6,7 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 03:36:38 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/13 03:36:38 by mchua            ###   ########.fr       */
+/*   Updated: 2024/04/22 20:27:35 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -50,9 +50,9 @@ bool	is_duplicate(t_node *stack_a, int argv)
 
 long	convert_number(char *argv)
 {
-	int	i;
+	int		i;
 	long	value;
-	int	sign;
+	int		sign;
 
 	i = 0;
 	value = 0;

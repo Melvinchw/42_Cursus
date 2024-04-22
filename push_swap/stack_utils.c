@@ -30,7 +30,7 @@ void	add_stack(t_node **stack_a, int nbr, char **argv, int arg_flag)
 
 	new_stack = calloc(1, sizeof(t_node));
 	if (!new_stack)
-		handle_error(NULL, "Unable to allocate memory for stack!", argv, arg_flag);
+		handle_error(NULL, "Error\n", argv, arg_flag);
 	new_stack->data = nbr;
 	new_stack->next = NULL;
 	if (*stack_a == NULL)
@@ -55,12 +55,12 @@ void	stack_init(t_node **stack_a, char **argv, int arg_flag)
 	while (argv[i])
 	{
 		if (!correct_input(argv[i]))
-			handle_error(stack_a, "Incorrect inputs!\n", argv, arg_flag);
+			handle_error(stack_a, "Error\n", argv, arg_flag);
 		nbr = convert_number(argv[i]);
 		if (nbr < INT_MIN || nbr > INT_MAX)
-			handle_error(stack_a, "Values out of range!\n", argv, arg_flag);
+			handle_error(stack_a, "Error\n", argv, arg_flag);
 		if (is_duplicate(*stack_a, nbr))
-			handle_error(stack_a, "Duplicates found!\n", argv, arg_flag);
+			handle_error(stack_a, "Error\n", argv, arg_flag);
 		add_stack(stack_a, nbr, NULL, arg_flag);
 		i++;
 	}

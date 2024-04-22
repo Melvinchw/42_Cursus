@@ -6,7 +6,7 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 03:37:17 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/13 03:37:17 by mchua            ###   ########.fr       */
+/*   Updated: 2024/04/22 20:25:43 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -14,7 +14,7 @@
 void	check_null(void *ptr)
 {
 	if (ptr == NULL)
-		handle_error(NULL, "Memory allocation error", NULL, 0);
+		handle_error(NULL, "Error\n", NULL, 0);
 	else
 		return ;
 }
@@ -42,7 +42,7 @@ int	count_words(char *str, char sep)
 		}
 	}
 	if (!i)
-		handle_error(NULL, "Invalid word count", NULL, 0);
+		handle_error(NULL, "Error", NULL, 0);
 	return (i);
 }
 
@@ -53,10 +53,10 @@ char	*next_word(char *str, char sep)
 	int			i;
 
 	i = 0;
-		while (str[counter] == sep)
-			counter++;
-		while (str[counter + i] != sep && str[counter + i] != '\0')
-			i++;
+	while (str[counter] == sep)
+		counter++;
+	while (str[counter + i] != sep && str[counter + i] != '\0')
+		i++;
 	word = malloc(i * sizeof(char) + 1);
 	check_null(word);
 	i = 0;
