@@ -6,7 +6,7 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 03:37:17 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/22 20:25:43 by mchua            ###   ########.fr       */
+/*   Updated: 2024/04/23 11:24:57 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -79,7 +79,7 @@ char	**split_args(char *str, char sep)
 	count = count_words(str, sep);
 	args = malloc((count + 2) * sizeof(char *));
 	check_null(args);
-	args[0] = '\0';
+	args[0] = NULL;
 	i = 1;
 	while (count > 0)
 	{
@@ -87,6 +87,6 @@ char	**split_args(char *str, char sep)
 		i++;
 		count--;
 	}
-	args[i] = '\0';
+	args[i] = NULL;
 	return (args);
 }

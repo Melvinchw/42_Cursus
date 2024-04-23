@@ -6,7 +6,7 @@
 #    By: mchua <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/08 21:00:10 by mchua             #+#    #+#              #
-#    Updated: 2024/04/09 11:13:03 by mchua            ###   ########.fr        #
+#    Updated: 2024/04/23 12:30:52 by mchua            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 TARGET:= push_swap
@@ -31,7 +31,7 @@ INCLUDE:= libft.h
 
 CC:= cc
 
-CCFLAGS:= -g -Wall -Werror -Wextra -I ${INCLUDE}
+CCFLAGS:= -Wall -Werror -Wextra -I ${INCLUDE}
 
 INCLUDE:= libft.h
 
