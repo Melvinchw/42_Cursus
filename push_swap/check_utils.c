@@ -61,6 +61,8 @@ long	convert_number(char *argv)
 		i++;
 	if (argv[i] == '-' || argv[i] == '+')
 	{
+		if (!argv[i + 1] && (argv[i] >= 33 && argv[i] <= 47))
+			return (write (2, "Error\n", 6), 0);
 		if (argv[i] == '-')
 			sign *= -1;
 		i++;

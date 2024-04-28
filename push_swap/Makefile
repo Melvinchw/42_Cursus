@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mchua <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: mchua <mchua@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/08 21:00:10 by mchua             #+#    #+#              #
-#    Updated: 2024/04/23 12:30:52 by mchua            ###   ########.fr        #
+#    Updated: 2024/04/28 11:54:42 by mchua            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 TARGET:= push_swap
@@ -31,9 +31,7 @@ INCLUDE:= libft.h
 
 CC:= cc
 
-CCFLAGS:= -Wall -Werror -Wextra -I ${INCLUDE}
-
-INCLUDE:= libft.h
+CCFLAGS:= -g -Wall -Werror -Wextra -I ${INCLUDE}
 
 LIB:= libft.a
 

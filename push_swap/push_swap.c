@@ -19,12 +19,12 @@ int	main(int argc, char **argv)
 	stack_a = NULL;
 	stack_b = NULL;
 	if (argc < 2 || (argc < 2 && !*argv[1]))
-		return (-1);
+		return (0);
 	else if (argc == 2)
 	{
 		argv = split_args(argv[1], ' ');
 		if (!argv)
-			handle_error(NULL, "Error\n", NULL, 0);
+			return (0);
 	}
 	stack_init(&stack_a, argv + 1, argc);
 	if (!in_order(stack_a))

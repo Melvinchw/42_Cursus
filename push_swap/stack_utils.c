@@ -64,6 +64,6 @@ void	stack_init(t_node **stack_a, char **argv, int arg_flag)
 		add_stack(stack_a, nbr, NULL, arg_flag);
 		i++;
 	}
-	if (arg_flag == 2)
+	if (arg_flag == 2 || nbr == 0)
 		free_array(argv);
 }

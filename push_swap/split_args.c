@@ -41,8 +41,6 @@ int	count_words(char *str, char sep)
 			str++;
 		}
 	}
-	if (!i)
-		handle_error(NULL, "Error", NULL, 0);
 	return (i);
 }
 
@@ -77,6 +75,8 @@ char	**split_args(char *str, char sep)
 	char	**args;
 
 	count = count_words(str, sep);
+	if (!count)
+		return (NULL);
 	args = malloc((count + 2) * sizeof(char *));
 	check_null(args);
 	args[0] = NULL;
