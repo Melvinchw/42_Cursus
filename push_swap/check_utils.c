@@ -48,7 +48,7 @@ bool	is_duplicate(t_node *stack_a, int argv)
 	return (false);
 }
 
-long	convert_number(char *argv)
+long	convert_number(t_node **stack, char *argv, char **arg_v, int arg_flag)
 {
 	int		i;
 	long	value;
@@ -62,7 +62,7 @@ long	convert_number(char *argv)
 	if (argv[i] == '-' || argv[i] == '+')
 	{
 		if (!argv[i + 1] && (argv[i] >= 33 && argv[i] <= 47))
-			return (write (2, "Error\n", 6), 0);
+			handle_error(stack, "Error\n", arg_v, arg_flag);
 		if (argv[i] == '-')
 			sign *= -1;
 		i++;

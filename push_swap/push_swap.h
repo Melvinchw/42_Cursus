@@ -94,7 +94,7 @@ void	stack_init(t_node **stack_a, char **argv, int arg_flag);
 //check_utils.c
 bool	correct_input(char *argv);
 bool	is_duplicate(t_node *stack_a, int argv);
-long	convert_number(char *argv);
+long	convert_number(t_node **stack, char *argv, char **arg_v, int arg_flag);
 bool	in_order(t_node *stack_a);
 
 //handle_error

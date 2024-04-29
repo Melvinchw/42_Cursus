@@ -6,7 +6,7 @@
 /*   By: mchua <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 03:34:26 by mchua             #+#    #+#             */
-/*   Updated: 2024/04/13 03:34:26 by mchua            ###   ########.fr       */
+/*   Updated: 2024/04/29 14:17:53 by mchua            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "push_swap.h"
@@ -56,7 +56,7 @@ void	stack_init(t_node **stack_a, char **argv, int arg_flag)
 	{
 		if (!correct_input(argv[i]))
 			handle_error(stack_a, "Error\n", argv, arg_flag);
-		nbr = convert_number(argv[i]);
+		nbr = convert_number(stack_a, argv[i], argv, arg_flag);
 		if (nbr < INT_MIN || nbr > INT_MAX)
 			handle_error(stack_a, "Error\n", argv, arg_flag);
 		if (is_duplicate(*stack_a, nbr))
@@ -64,6 +64,6 @@ void	stack_init(t_node **stack_a, char **argv, int arg_flag)
 		add_stack(stack_a, nbr, NULL, arg_flag);
 		i++;
 	}
-	if (arg_flag == 2 || nbr == 0)
+	if (arg_flag == 2)
 		free_array(argv);
 }
